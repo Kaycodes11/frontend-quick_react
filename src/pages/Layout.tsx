@@ -1,5 +1,8 @@
 import {NavLink, Outlet} from "react-router-dom";
 
+//  by using the <Outlet /> it simply registers the child routes so now when any of child routes clicked
+// it would which page to load
+
 const Layout = () => {
     return (
         <>
