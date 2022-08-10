@@ -1,33 +1,56 @@
 import React from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Post from "./pages/Post";
-import PostLayout from "./pages/PostLayout";
-import PostDetail from "./pages/PostDetail";
-import Layout from "./pages/Layout";
-import "./App.css";
+import {BrowserRouter as Router, Navigate, Outlet, Route, Routes, useNavigate} from "react-router-dom";
+
+const Home = () => <div>Home page</div>;
+const Profile = () => <div>Profile page</div>;
+
+const Login: React.FC<{ auth: Function }> = ({auth}) => {
+    const navigate = useNavigate();
+    const authenticate = () => {
+        auth();
+        navigate("/profile");
+    }
+    return (
+        <div>
+            <h1>Login page</h1>
+            <button onClick={authenticate}>authenticate</button>
+        </div>
+    )
+};
+const Teams = () => <div>Teams page</div>;
+const NotFound = () => <div>404 error</div>;
 
 
-function App() {
+const PrivateRoutes: React.FC<{ isLoggedIn: boolean }> = ({isLoggedIn}) => {
+    return isLoggedIn ? <Outlet/> : <Navigate to={"/login"}/>
+}
+
+
+export default function App() {
+    const [isLogged, setIsLoggedIn] = React.useState<boolean>(((): boolean => {
+            // if it has truthy value then return true else false
+            return !!JSON.parse(localStorage.getItem('login')!);
+        }
+    )());
+
+    const toggleLogin = () => {
+        setIsLoggedIn(!isLogged);
+        localStorage.setItem('login', JSON.stringify(!isLogged));
+    };
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route path="about" element={<About/>}/>
-                    <Route path="contact" element={<Contact/>}/>
-                    <Route path="post" element={<PostLayout/>}>
-                        <Route path=":category" element={<PostDetail/>}/>
-                        <Route index element={<Post/>}/>
-                    </Route>
-                    <Route index element={<Home/>}/>
+                <Route element={<PrivateRoutes isLoggedIn={isLogged}/>}>
+                    <Route path={"/"} element={<Home/>}/>
+                    <Route path={"/profile"} element={<Profile/>}/>
+                    <Route path={"/teams"} element={<Teams/>}/>
                 </Route>
-                <Route path="*" element={<h1>Error 404 Page not Found !!</h1>}/>
-            </Routes>
-        </Router>
-    );
-}
 
-export default App;
+                <Route path={"/login"} element={<Login auth={toggleLogin}/>}/>
+                <Route path={"*"} element={<NotFound/>}/>
+            </Routes>
+
+        </Router>
+    )
+
+}
