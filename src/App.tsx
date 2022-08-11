@@ -6,6 +6,7 @@ const Profile = () => <div>Profile page</div>;
 
 const Login: React.FC<{ isLoggedIn: boolean, auth: Function }> = ({isLoggedIn, auth}) => {
     const {pathname} = useLocation();
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         if(pathname === '/login' && isLoggedIn) {
@@ -15,7 +16,7 @@ const Login: React.FC<{ isLoggedIn: boolean, auth: Function }> = ({isLoggedIn, a
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoggedIn,  pathname])
 
-    const navigate = useNavigate();
+
     const authenticate = () => {
         auth();
         navigate("/profile");
