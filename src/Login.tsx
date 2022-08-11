@@ -1,5 +1,6 @@
 import React from "react";
-import {getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import {getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut} from "firebase/auth"
+import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import getFirebase from "./firebase";
 
@@ -34,9 +35,28 @@ const Button = styled.button`
 
 export default function Login() {
     const firebase = getFirebase();
+    const navigate = useNavigate();
     const auth = getAuth();
-    const [email, setEmail] = React.useState<string>('');
+    const [email, setEmail] = React.useState<string>('ff@gmail.com');
     const [pass, setPass] = React.useState<string>('');
+    const [user, setUser] = React.useState<string | null>(null);
+
+    // without dependency, any sort of interaction done on `Login` component will run below code
+    React.useEffect(() => {
+        // for now every time `Login` component render/render get the current user
+        // later this could be improved by using context
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // all the data that's needed will be within this user
+                setUser(user.email);
+                // when navigating to auth if user exist then send to profile route
+                navigate('/profile', {replace: true});
+
+            } else {
+                setUser(null);
+            }
+        })
+    });
 
     const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -44,16 +64,6 @@ export default function Login() {
     const handlePass = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPass(event.target.value);
     };
-
-    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        try {
-            const loggedOut = await signOut(auth);
-            console.log(`loggedOut: `, loggedOut);
-        } catch (error: any) {
-            console.error("logout_error: ", error.message)
-        }
-    };
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -65,15 +75,24 @@ export default function Login() {
             console.log('registration error', error);
         }
 
+    };
+    const handleLogout  = async () => {
+        try {
+            await signOut(auth);
+        } catch ( error: any) {
+            console.log(`logoutError`, error.message)
+        }
     }
     return (
         <>
+            <h2>The authenticated user is : {String(user)}</h2>
             <Form onSubmit={handleSubmit}>
                 <Input autoFocus={true} type="email" placeholder="enter email" value={email} onChange={handleEmail}/>
                 <Input type="password" placeholder="enter password" value={pass} onChange={handlePass}/>
                 <Button>Login</Button>
             </Form>
-            <button onClick={handleLogout}>Sign Out</button>
+            {user && <button onClick={handleLogout}>logout</button>}
         </>
     )
 };
+

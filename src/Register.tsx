@@ -68,8 +68,6 @@ export default function Register() {
                 <Input type="password" placeholder="enter password" value={pass} onChange={handlePass}/>
                 <Button>Register</Button>
             </Form>
-            {/*{email}*/}
-            {/*{pass}*/}
         </>
     )
 }
