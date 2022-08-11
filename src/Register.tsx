@@ -1,4 +1,6 @@
 import React from "react";
+import getFirebase from "./firebase";
+import {getAuth, createUserWithEmailAndPassword} from "firebase/auth"
 import styled from "styled-components";
 
 
@@ -26,28 +28,48 @@ const Button = styled.button`
   height: 50px;
   background-color: black;
   color: white;
+  cursor: pointer;
 `;
 
 
 export default function Register() {
-    const [value, setValue] = React.useState<string>('');
+    const firebase = getFirebase();
+    const auth = getAuth()
+    const [email, setEmail] = React.useState<string>('test@gmail.com');
+    const [pass, setPass] = React.useState<string>(Math.random().toString(36).substring(2));
+
     const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const email = event.target.value;
-        setValue(email);
+        setEmail(event.target.value);
     };
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handlePass = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPass(event.target.value);
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        // stop the form from redirection [default form element behaviour]
         event.preventDefault();
-        // do something
+        // take the email and password the use firebase api
+        try {
+            if (firebase && email.length && pass.length) {
+                const registeredUser = await createUserWithEmailAndPassword(auth, email, pass);
+                console.log(`registered: `, registeredUser.user);
+                setEmail("");
+                setPass("");
+            }
+        } catch (error: any) {
+            console.log('registration error', error.code, error.message);
+        }
 
     }
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                <Input type="email" placeholder="enter email" value={value} onChange={handleEmail}/>
-                <Input type="password" placeholder="enter password" value={value} onChange={handleEmail}/>
+                <Input type="email" placeholder="enter email" value={email} onChange={handleEmail}/>
+                <Input type="password" placeholder="enter password" value={pass} onChange={handlePass}/>
                 <Button>Register</Button>
             </Form>
-            {value}
+            {/*{email}*/}
+            {/*{pass}*/}
         </>
     )
 }
