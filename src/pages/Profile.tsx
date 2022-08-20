@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   background-color: seagreen;
 `;
 
-const Text = styled.text`
+const Text = styled.p`
   width: 50%;
   display: flex;
   font-size: 45px;
@@ -35,6 +35,14 @@ const Img = styled.img`
 function Profile() {
     const [, setUpdatedUser] = React.useState<null | any>(null)
     const user = getAuth().currentUser;
+
+    // as component loads/reloads the `useEffect with its clean up` runs
+    React.useEffect(() => {
+        console.log('Profile useEffect one');
+        return function () {
+            alert("leaving profile");
+        }
+    });
 
     const updateUserProfile = () => {
         user && updateProfile(user, {displayName: "Jones"})
