@@ -1,10 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Routes, Route, useNavigate } from "react-router-dom";
+import MainRoutes from "./routes";
 
 const Login = () => {
   return <div>Login</div>;
@@ -20,12 +15,5 @@ const PrivateRoutes = ({ children }: { children: JSX.Element }) => {
 };
 
 export default function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/profile" element={<Profile />} />
-        <Route index element={<Login />} />
-      </Routes>
-    </Router>
-  );
+  return <MainRoutes />;
 }
