@@ -6,7 +6,7 @@ export default function FieldArray2() {
   const { control, handleSubmit } = useForm();
   const { fields, append, update } = useFieldArray({
     control,
-    name: 'array'
+    name: "array",
   });
 
   return (
@@ -37,20 +37,20 @@ export default function FieldArray2() {
 const Display = ({ control, index }) => {
   const data = useWatch({
     control,
-    name: `array.${index}`
+    name: `array.${index}`,
   });
   return <p>{data?.firstName}</p>;
 };
 
 const Edit = ({ update, index, value, control }) => {
   const { register, handleSubmit } = useForm({
-    defaultValues: value
+    defaultValues: value,
   });
 
   return (
     <div>
       <Display control={control} index={index} />
-      
+
       <input
         placeholder="first name"
         {...register(`firstName`, { required: true })}
@@ -65,4 +65,3 @@ const Edit = ({ update, index, value, control }) => {
     </div>
   );
 };
-

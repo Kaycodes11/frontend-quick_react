@@ -2,26 +2,29 @@ import { useForm, useFieldArray, useWatch, Control } from "react-hook-form";
 
 type FormValues = {
   cart: {
-    name: string;
-    price: number;
-    quantity: number;
+    name: string | null;
+    price: number | null;
+    quantity: number | null;
   }[];
 };
 
-// This Total component just need to provide with control
 const Total = ({ control }: { control: Control<FormValues> }) => {
+  // watching the cart field
   const formValues = useWatch({
     name: "cart",
     control,
   });
+
+  console.log("formValues: ", formValues);
+
   const total = formValues.reduce(
     (acc, current) => acc + (current.price || 0) * (current.quantity || 0),
     0
   );
+
   return <p>Total Amount: {total}</p>;
 };
 
-// WORKING
 export default function FieldArray1() {
   const {
     register,
@@ -30,14 +33,16 @@ export default function FieldArray1() {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      cart: [{ name: "test", quantity: 1, price: 23 }],
+      cart: [{ name: "", quantity: null, price: null }],
     },
     mode: "onBlur",
   });
-  const { fields, append, remove } = useFieldArray({
+
+  const { fields, append, prepend, remove } = useFieldArray({
     name: "cart",
     control,
   });
+
   const onSubmit = (data: FormValues) => console.log(data);
 
   return (
@@ -93,6 +98,12 @@ export default function FieldArray1() {
           }
         >
           APPEND
+        </button>
+        <button
+          type="button"
+          onClick={() => prepend({ name: "", price: 1, quantity: 2 })}
+        >
+          PREPEND
         </button>
         <input type="submit" />
       </form>
