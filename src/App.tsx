@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import InputMasking from "./components/ReactHookForm/InputMasking";
+import FieldArrayMin from "./components/ReactHookForm/UsingFieldArray/FieldArrayMin";
+import FormDate from "./components/ReactHookForm/FormDate";
+import GetCompareFields from "./components/ReactHookForm/FieldCompare";
+import FieldArray1 from "./components/ReactHookForm/UsingFieldArray/FieldArray1";
+import FieldArray2 from "./components/ReactHookForm/UsingFieldArray/FieldArray2";
+import UseFieldArrayUnregister from "./components/ReactHookForm/UsingFieldArray/FieldArray3";
+import FieldArray4 from "./components/ReactHookForm/UsingFieldArray/FieldArray4";
+import UsingSetValue from "./components/ReactHookForm/UsingSetValue";
+import UsingSetValueDependant from "./components/ReactHookForm/UsingSetValueDependant";
+import UsingClearErrors from "./components/ReactHookForm/UsingClearErrors";
+import UsingResetField from "./components/ReactHookForm/UsingResetField";
+import UsingResetForFieldArray from "./components/ReactHookForm/UsingResetForFieldArray";
+import UsingResetWithSubmit from "./components/ReactHookForm/UsingResetWithSubmit";
+import UsingUnRegister from "./components/ReactHookForm/UsingUnRegister";
+import "./App.css";
 
 // make branch from this branch
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <UsingUnRegister />
     </div>
   );
 }
