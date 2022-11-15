@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useForm, useFormState } from "react-hook-form";
 
 export default function UsingFormState() {
@@ -7,7 +6,7 @@ export default function UsingFormState() {
       firstName: "firstName",
     },
   });
-  //   useFormState hook just helps to destructure from control
+  // useFormState hook just helps to destructure from control
   const { dirtyFields } = useFormState({
     control,
   });

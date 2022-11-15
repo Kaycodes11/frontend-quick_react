@@ -158,7 +158,6 @@ export default function ValidationOnFieldChange() {
         />
 
         <button
-          style={{ marginTop: ".2rem" }}
           onClick={() => {
             reset((formValues) => ({
               ...formValues,

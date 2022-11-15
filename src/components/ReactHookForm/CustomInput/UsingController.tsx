@@ -4,7 +4,8 @@ type FormValues = {
   FirstName: string;
 };
 
-// to make custom field/control like below use these two hooks rather than <Controller />
+// To make custom field/control like below use these two hooks rather than <Controller />
+// This is also good to use for native input and when using with any libary
 function Input(props: UseControllerProps<FormValues>) {
   const { field, fieldState } = useController(props);
 
@@ -13,7 +14,6 @@ function Input(props: UseControllerProps<FormValues>) {
       <input {...field} placeholder={props.name} />
       <p>{fieldState.isTouched && "Touched"}</p>
       <p>{fieldState.isDirty && "Dirty"}</p>
-      {/* <p>{fieldState.invalid ? "invalid" : "valid"}</p> */}
     </div>
   );
 }

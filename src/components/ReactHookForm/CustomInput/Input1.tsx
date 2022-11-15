@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Path,
-  UseFormRegister,
-  useForm,
-} from "react-hook-form";
+import { Path, UseFormRegister, useForm } from "react-hook-form";
 
 interface IFormValues {
   firstName: string;
@@ -19,7 +15,8 @@ type InputProps = {
   required: boolean;
 };
 
-// Reusable Input
+// working
+// Reusable Input : this way of building custom input is ok when not using with any libary
 export default function Input1({ label, register, required }: InputProps) {
   return (
     <>

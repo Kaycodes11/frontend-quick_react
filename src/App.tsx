@@ -15,13 +15,16 @@ import UsingResetWithSubmit from "./components/ReactHookForm/UsingResetWithSubmi
 import UsingUnRegister from "./components/ReactHookForm/UsingUnRegister";
 import NormalizedField from "./components/ReactHookForm/practice/NormalizedField";
 import UseFieldArrayUnregister2 from "./components/ReactHookForm/UsingFieldArray/FieldArray3a";
+import UsingWatch from "./components/ReactHookForm/CustomInput/UsingWatch";
+import Trigger from "./components/ReactHookForm/Trigger";
+import ValidationOnFieldChange from "./components/ReactHookForm/Form/ValidationOnFieldChange";
 import "./App.css";
 
 // make branch from this branch
 function App() {
   return (
     <div className="App">
-      <UseFieldArrayUnregister2 />
+      <ValidationOnFieldChange />
     </div>
   );
 }
