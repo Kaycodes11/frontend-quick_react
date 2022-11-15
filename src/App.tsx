@@ -18,13 +18,15 @@ import UseFieldArrayUnregister2 from "./components/ReactHookForm/UsingFieldArray
 import UsingWatch from "./components/ReactHookForm/CustomInput/UsingWatch";
 import Trigger from "./components/ReactHookForm/Trigger";
 import ValidationOnFieldChange from "./components/ReactHookForm/Form/ValidationOnFieldChange";
+import Form2 from "./components/ReactHookForm/Form/Form2";
+import Form1 from "./components/ReactHookForm/Form/Form1";
 import "./App.css";
 
 // make branch from this branch
 function App() {
   return (
     <div className="App">
-      <ValidationOnFieldChange />
+      <Form1 />
     </div>
   );
 }

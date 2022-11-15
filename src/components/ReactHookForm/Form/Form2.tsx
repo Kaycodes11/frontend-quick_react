@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from "react";
 import {
   useForm,
   UseFormReturn,
   UseFormRegisterReturn,
   SubmitHandler,
+  FieldValues,
 } from "react-hook-form";
 
 const Input = (props: Partial<UseFormRegisterReturn> & { type?: string }) => {
@@ -26,7 +26,7 @@ const Select = ({ options, ...props }: SelectProps) => (
   </select>
 );
 
-type FormProps<TFormValues extends FieldValues> = {
+type FormProps<TFormValues extends FieldValues = FormValues> = {
   onSubmit: SubmitHandler<TFormValues>;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
 };
