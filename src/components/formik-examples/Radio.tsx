@@ -1,5 +1,6 @@
 import { Formik, Field, Form } from 'formik';
 
+// WORKING
 const Radio = () => (
   <div>
     <h1>Sign Up</h1>

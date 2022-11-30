@@ -10,6 +10,7 @@ const initialValues = {
   ],
 };
 
+// WORKING
 const InviteFriends = () => (
   <div>
     <h1>Invite friends</h1>

@@ -2,7 +2,8 @@
 import React from "react";
 import { useFormikContext, Formik, Form, Field } from "formik";
 
-// Here's an example of a form that works similarly to Stripe's 2-factor verification form. As soon as you type a 6 digit number, the form will automatically submit (i.e. no enter keypress is needed).
+// Here's an example of a form that works similarly to Stripe's 2-factor verification form. As soon as you type a 6 digit number, 
+// the form will automatically submit (i.e. no enter keypress is needed).
 
 const AutoSubmitToken = () => {
   // Grab values and submitForm from context as it has all Formik staate & helper methods
@@ -17,6 +18,7 @@ const AutoSubmitToken = () => {
   return null;
 };
 
+// WORKING
 const TwoFactorVerificationForm = () => (
   <div>
     <h1>2-step Verification</h1>

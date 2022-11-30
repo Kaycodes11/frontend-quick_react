@@ -4,6 +4,8 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 // const sleep = (n = 500) => setTimeout(() => Promise.resolve(), n)
 
 // This example demonstrates how to use async/await to submit a Formik form.
+
+// WORKING
 export default function AsyncSumission() {
   const handleSubmit = async (values: {
     firstName: string;
@@ -28,7 +30,7 @@ export default function AsyncSumission() {
         }}
       >
         {({ isSubmitting }) => (
-          <Form>
+          <Form style={{display: "flex", flexDirection: "column"}}>
             <label htmlFor="firstName">First Name</label>
             <Field name="firstName" placeholder="Jane" />
 
@@ -38,7 +40,7 @@ export default function AsyncSumission() {
             <label htmlFor="email">Email</label>
             <Field name="email" placeholder="jane@gmail.com" type="email" />
 
-            <button type="submit" disabled={isSubmitting}>
+            <button style={{ marginTop: "4px" }} type="submit" disabled={isSubmitting}>
               Submit
             </button>
           </Form>

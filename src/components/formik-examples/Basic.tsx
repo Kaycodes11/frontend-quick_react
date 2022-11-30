@@ -32,7 +32,7 @@ export default function Basic() {
           alert(JSON.stringify(values, null, 2));
         }}
       >
-        <Form>
+        <Form style={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor="firstName">First Name</label>
           <Field id="firstName" name="firstName" placeholder="Jane" />
 
@@ -46,7 +46,7 @@ export default function Basic() {
             placeholder="jane@acme.com"
             type="email"
           />
-          <button type="submit">Submit</button>
+          <button style={{ marginTop: "4px" }} type="submit">Submit</button>
         </Form>
       </Formik>
     </div>

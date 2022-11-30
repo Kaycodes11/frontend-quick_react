@@ -31,6 +31,8 @@ const MyInput = ({ field, form, ...props }) => {
 };
 
 // this is just a basic form with validation and masking
+
+// WORKING
 export default function Basic() {
   // field level validation
   function validateEmail(value: string) {

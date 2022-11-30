@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 interface MyFormValues {
   firstName: string;
 }
-// basic form 
+// WORKING
 const TypedForm: React.FC<{}> = () => {
   const initialValues: MyFormValues = { firstName: "" };
   return (
@@ -19,7 +19,9 @@ const TypedForm: React.FC<{}> = () => {
         }}
       >
         <Form>
-          <label htmlFor="firstName">First Name</label>
+          <label style={{ display: "block" }} htmlFor="firstName">
+            First Name
+          </label>
           <Field id="firstName" name="firstName" placeholder="First Name" />
           <button type="submit">Submit</button>
         </Form>

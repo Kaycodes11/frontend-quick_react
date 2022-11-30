@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React from "react";
-import ReactDOM from "react-dom";
 import { Formik, Field, Form, useField, useFormikContext } from "formik";
 
 async function fetchNewTextC(a, b) {
@@ -39,6 +38,7 @@ const MyField = (props: any) => {
   );
 };
 
+// WORKING
 export default function DependantAsnyc() {
   const initialValues = { textA: "", textB: "", textC: "" };
 
@@ -63,7 +63,7 @@ export default function DependantAsnyc() {
               </em>
             </small>
           </div>
-          <Form>
+          <Form style={{ display: "flex", flexDirection: "column" , gap: ".4rem"}}>
             <label>
               textA
               <Field name="textA" />

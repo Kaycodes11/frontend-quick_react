@@ -9,7 +9,7 @@ interface MyFormValues {
 export default function TsForm() {
   return (
     <div>
-      <h1>Signup</h1>
+      <h1>SignUp</h1>
       <Formik
         initialValues={{
           firstName: "",
@@ -26,7 +26,7 @@ export default function TsForm() {
           }, 500);
         }}
       >
-        <Form>
+        <Form style={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor="firstName">First Name</label>
           <Field id="firstName" name="firstName" placeholder="John" />
 
@@ -41,7 +41,9 @@ export default function TsForm() {
             type="email"
           />
 
-          <button type="submit">Submit</button>
+          <button style={{ marginTop: "4px" }} type="submit">
+            Submit
+          </button>
         </Form>
       </Formik>
     </div>

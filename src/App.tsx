@@ -20,13 +20,27 @@ import Trigger from "./components/ReactHookForm/Trigger";
 import ValidationOnFieldChange from "./components/ReactHookForm/Form/ValidationOnFieldChange";
 import Form2 from "./components/ReactHookForm/Form/Form2";
 import Form1 from "./components/ReactHookForm/Form/Form1";
+import BasicForm from "./components/formik-examples/Basic";
+import TwoFactorVerificationForm from "./components/BasicForm/FormikContext";
+import NestedForm from "./components/BasicForm/NestedForm";
+import TypedForm from "./components/BasicForm/TypedForm";
+import UsingFormArray from "./components/BasicForm/UsingFieldArray";
+import UsingFormik from "./components/BasicForm/UsingFormik";
+import AsyncSumission from "./components/formik-examples/AsyncSumission";
+import CheckBox from "./components/formik-examples/CheckBox";
+import Dependent from "./components/formik-examples/Dependant";
+import DependantAsnyc from "./components/formik-examples/DependantAsync";
+import InviteFriends from "./components/formik-examples/FormArray";
+import InstantFeedback from "./components/formik-examples/InstantFeedback";
+import Radio from "./components/formik-examples/Radio";
+import TsForm from "./components/formik-examples/TsForm";
 import "./App.css";
 
 // make branch from this branch
 function App() {
   return (
     <div className="App">
-      <Form1 />
+      <TsForm />
     </div>
   );
 }

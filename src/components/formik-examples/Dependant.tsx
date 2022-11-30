@@ -1,4 +1,5 @@
 // @ts-nocheck
+import React from "react";
 import { Formik, Field, Form, useField, useFormikContext } from "formik";
 
 const MyField = (props) => {
@@ -29,6 +30,7 @@ const MyField = (props) => {
   );
 };
 
+// WORKING
 export default function Dependent() {
   // Note that we provide initalValues all 3 fields.
   const initialValues = { textA: "", textB: "", textC: "" };
@@ -53,7 +55,7 @@ export default function Dependent() {
               </em>
             </small>
           </div>
-          <Form>
+          <Form style={{ display: "flex", flexDirection: "column" , gap: ".4rem"}}>
             <label>
               textA
               <Field name="textA" />
