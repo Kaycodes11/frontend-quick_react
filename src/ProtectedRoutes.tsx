@@ -15,15 +15,7 @@ const ProtectedRoutes = (props: ProtectedRouteType) => {
 
   //if the role required is there or not
   if (props.roleRequired) {
-    return auth ? (
-      props.roleRequired === role ? (
-        <Outlet />
-      ) : (
-        <Navigate to="/denied" />
-      )
-    ) : (
-      <Navigate to="/login" />
-    );
+    return auth ? (props.roleRequired === role ? (<Outlet />) : (<Navigate to="/denied" />)) : (<Navigate to="/login" />);
   } else {
     return auth ? <Outlet /> : <Navigate to="/login" />;
   }
