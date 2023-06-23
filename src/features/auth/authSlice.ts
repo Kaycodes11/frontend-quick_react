@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import authService from "./services/auth.service";
 import { NewUser } from "./models/NewUser";
 import { DisplayUser } from "./models/DisplayUser.interface";
@@ -35,42 +34,33 @@ const initialState: AuthState = {
   isError: false,
 };
 
-export const register = createAsyncThunk(
-  "auth/register",
-  async (user: NewUser, thunkAPI) => {
-    try {
-      return await authService.register(user);
-    } catch (error) {
-      return thunkAPI.rejectWithValue("Unable to register!");
-    }
+export const register = createAsyncThunk("auth/register", async (user: NewUser, thunkAPI) => {
+  try {
+    return await authService.register(user);
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Unable to register!");
   }
-);
+});
 
-export const login = createAsyncThunk(
-  "auth/login",
-  async (user: LoginUser, thunkAPI) => {
-    try {
-      return await authService.login(user);
-    } catch (error) {
-      return thunkAPI.rejectWithValue("Unable to login");
-    }
+export const login = createAsyncThunk("auth/login", async (user: LoginUser, thunkAPI) => {
+  try {
+    return await authService.login(user);
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Unable to login");
   }
-);
+});
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
 });
 
-export const verifyJwt = createAsyncThunk(
-  "auth/verify-jwt",
-  async (jwt: string, thunkAPI) => {
-    try {
-      return await authService.verifyJwt(jwt);
-    } catch (error) {
-      return thunkAPI.rejectWithValue("Unable to verify");
-    }
+export const verifyJwt = createAsyncThunk("auth/verify-jwt", async (jwt: string, thunkAPI) => {
+  try {
+    return await authService.verifyJwt(jwt);
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Unable to verify");
   }
-);
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -141,6 +131,7 @@ export const authSlice = createSlice({
 
 export const { reset } = authSlice.actions;
 
+//  now this could memoized
 export const selectedUser = (state: RootState) => {
   // @ts-ignore
   return state.auth;

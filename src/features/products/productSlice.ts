@@ -32,9 +32,7 @@ const modifyQtyByOne = (
 ) => {
   const previousCart = [...cart];
 
-  const productInCart = previousCart.find(
-    (product) => product._id === selectedProduct._id
-  );
+  const productInCart = previousCart.find((product) => product._id === selectedProduct._id);
 
   let newCart = [];
 
@@ -42,9 +40,7 @@ const modifyQtyByOne = (
     previousCart.push({ ...selectedProduct, quantity: 1 });
     newCart = previousCart;
   } else {
-    const filteredCart = previousCart.filter(
-      (p) => p._id !== productInCart._id
-    );
+    const filteredCart = previousCart.filter((p) => p._id !== productInCart._id);
 
     const modification = modificationType === "INCREMENT" ? 1 : -1;
 
@@ -72,19 +68,11 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     incrementProduct: (state, action: PayloadAction<ProductDocument>) => {
-      const modifiedCart = modifyQtyByOne(
-        state.cart,
-        action.payload,
-        "INCREMENT"
-      );
+      const modifiedCart = modifyQtyByOne(state.cart, action.payload, "INCREMENT");
       state.cart = modifiedCart;
     },
     decrementProduct: (state, action: PayloadAction<ProductDocument>) => {
-      const modifiedCart = modifyQtyByOne(
-        state.cart,
-        action.payload,
-        "DECREMENT"
-      );
+      const modifiedCart = modifyQtyByOne(state.cart, action.payload, "DECREMENT");
       state.cart = modifiedCart;
     },
     resetCart: (state) => {

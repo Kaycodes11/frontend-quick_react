@@ -11,6 +11,6 @@ export const pokemonApi = createApi({
   }),
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
+// https://redux-toolkit.js.org/rtk-query/usage/queries
+// Export hooks for usage in functional components, i.e. auto-generated based on the defined endpoints
 export const { useGetPokemonByNameQuery } = pokemonApi;
