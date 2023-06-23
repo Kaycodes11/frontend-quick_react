@@ -1,8 +1,26 @@
 import axios from "axios";
 
+// axios.defaults.baseURL = "https://jsonplaceholder.typicode.com"; // or do this with create method()
+
+// axios instace
 const base = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com',
+  baseURL: "https://jsonplaceholder.typicode.com",
 });
+
+async function getTodos() {
+  const controller = new AbortController();
+  try {
+    const result = await base.get("/todos", { signal: controller.signal });
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("The api request has cancelled");
+    } else {
+      console.error(error.message);
+    }
+  }
+}
+
+// on useEffect's cleanup just : return () => controller.abort();
 
 async function axiosPut(apiURL) {
   const controller = new AbortController();
@@ -15,6 +33,7 @@ async function axiosPut(apiURL) {
     };
     const userId = 1;
     const response = await axios.put(apiURL, userId, {
+      // https://axios-http.com/docs/req_config (these are only avaiable to put, post and delete)
       signal: controller.signal,
     });
   } catch (error) {
