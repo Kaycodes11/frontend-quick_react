@@ -36,13 +36,14 @@ import Radio from "./components/formik-examples/Radio"; // Formik
 import TsForm from "./components/formik-examples/TsForm"; // Formik
 import DependantField from "./components/ReactHookForm/DependantField";
 import Form from "./components/ReactHookForm/Form";
+import WatchFieldOrFields from "./components/ReactHookForm/Form/WatchFieldOrFields";
 import "./App.css";
 
 // make branch from this branch
 function App() {
   return (
     <div className="App">
-      <Form />
+      <WatchFieldOrFields />
     </div>
   );
 }

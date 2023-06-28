@@ -41,6 +41,7 @@ function FirstNameChanged({ control }: { control: Control<FormValues> }) {
   return <p>Watch: {firstName}</p>;
 }
 
+// https://codesandbox.io/s/react-hook-form-resolver-rvspp?file=/src/App.tsx
 export default function Form() {
   const initialValues: FormValues = { firstName: "", lastName: "", email: "" };
   const {
@@ -51,6 +52,7 @@ export default function Form() {
     formState: { errors, isDirty },
   } = useForm<FormValues>({
     mode: "onChange",
+    // resolver: resolver,
     resolver: yupResolver(SignupSchema),
     defaultValues: initialValues,
   });
@@ -78,6 +80,7 @@ export default function Form() {
       <input type="email" {...register("email")} placeholder="john@gmail.com" />
 
       <input type="submit" />
+
       {/* for some reason if needed to wach all / specific form cotrols */}
       <FirstNameChanged control={control} />
 
