@@ -1,4 +1,4 @@
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form } from "formik";
 
 // WORKING
 const Radio = () => (
@@ -6,7 +6,7 @@ const Radio = () => (
     <h1>Sign Up</h1>
     <Formik
       initialValues={{
-        picked: '',
+        picked: "",
       }}
       onSubmit={async (values) => {
         await new Promise((r) => setTimeout(r, 500));
@@ -34,6 +34,5 @@ const Radio = () => (
     </Formik>
   </div>
 );
-
 
 export default Radio;

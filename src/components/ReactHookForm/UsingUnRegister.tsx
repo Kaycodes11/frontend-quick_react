@@ -6,8 +6,8 @@ interface IFormInputs {
   lastName?: string;
 }
 
-// if some field which is not needed or dynamically turned off, then that field's value still be
-// avaiable at form submisstion, to exclude that use "unregister"
+// if some field which is not needed or dynamically turned off, then that field's value still
+// avaiable somehow at the form submisstion, to exclude that field's value - use "unregister"
 
 export default function UsingUnRegister() {
   const { register, handleSubmit, watch, unregister } = useForm<IFormInputs>();
@@ -15,6 +15,7 @@ export default function UsingUnRegister() {
 
   const firstName = watch("firstName");
 
+  // This could be isolate to a separate watch component
   React.useEffect(() => {
     if (!firstName) {
       unregister("lastName");

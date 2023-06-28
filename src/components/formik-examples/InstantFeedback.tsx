@@ -13,30 +13,21 @@ const TextInputLiveFeedback = ({ label, helpText, ...props }) => {
   // - or, the has been visited (touched === true)
   const [didFocus, setDidFocus] = React.useState(false);
   const handleFocus = () => setDidFocus(true);
-  const showFeedback =
-    (!!didFocus && field.value.trim().length > 2) || meta.touched;
+  const showFeedback = (!!didFocus && field.value.trim().length > 2) || meta.touched;
 
   return (
-    <div
-      className={`form-control ${
-        showFeedback ? (meta.error ? "invalid" : "valid") : ""
-      }`}
-    >
+    <div className={`form-control ${showFeedback ? (meta.error ? "invalid" : "valid") : ""}`}>
       <div className="flex items-center space-between">
         <label htmlFor={props.id}>{label}</label>{" "}
         {showFeedback ? (
-          <div
-            id={`${props.id}-feedback`}
-            aria-live="polite"
-            className="feedback text-sm"
-          >
+          <div id={`${props.id}-feedback`} aria-live="polite" className="feedback text-sm">
             {meta.error ? meta.error : "✓"}
           </div>
         ) : null}
       </div>
       <input
-        {...props}
         {...field}
+        {...props}
         aria-describedby={`${props.id}-feedback ${props.id}-help`}
         onFocus={handleFocus}
       />
@@ -46,6 +37,31 @@ const TextInputLiveFeedback = ({ label, helpText, ...props }) => {
     </div>
   );
 };
+
+function MyOtherComponent(props) {
+  // Here not using an input element, so instead of using 'field' directly,
+  // we'll use 'meta' and 'helpers'.
+  const [field, meta, helpers] = useField(props.name);
+
+  const { value } = meta;
+  const { setValue } = helpers;
+
+  const isSelected = (v) => (v === value ? "selected" : "");
+
+  return (
+    <div className="itemsPerPage">
+      <button onClick={() => setValue(5)} className={isSelected(5)}>
+        5
+      </button>
+      <button onClick={() => setValue(10)} className={isSelected(10)}>
+        10
+      </button>
+      <button onClick={() => setValue(25)} className={isSelected(25)}>
+        25
+      </button>
+    </div>
+  );
+}
 
 // WORKING
 const InstantFeedback = () => {
@@ -62,10 +78,7 @@ const InstantFeedback = () => {
         .min(8, "Must be at least 8 characters")
         .max(20, "Must be less  than 20 characters")
         .required("Username is required")
-        .matches(
-          /^[a-zA-Z0-9]+$/,
-          "Cannot contain special characters or spaces"
-        ),
+        .matches(/^[a-zA-Z0-9]+$/, "Cannot contain special characters or spaces"),
     }),
   });
 

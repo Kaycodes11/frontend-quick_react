@@ -8,6 +8,7 @@ type FormValues = {
 };
 
 // working but need to practice ReactDatePicker libary
+// Whenever using the custom input field , to get proper type on props, use the appropiate "type"
 function UsingDatePicker(props: UseControllerProps<FormValues>) {
   const { field, fieldState, formState } = useController(props);
 

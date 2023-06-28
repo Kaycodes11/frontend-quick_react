@@ -51,19 +51,16 @@ export default function DependantAsnyc() {
         <div className="section">
           <h1>Dependent Formik fields with Async Request</h1>
           <p style={{ color: "#555" }}>
-            This is an example of a complex dependent field in Formik v2. In
-            this example, textC's value is set by making an async API request
-            based on the current values of fields textA and textB.
+            This is an example of a complex dependent field in Formik v2. In this example, textC's
+            value is set by making an async API request based on the current values of fields textA
+            and textB.
           </p>
           <div>
             <small>
-              <em>
-                Instructions: enter values for textA, and textB, and then watch
-                textC
-              </em>
+              <em>Instructions: enter values for textA, and textB, and then watch textC</em>
             </small>
           </div>
-          <Form style={{ display: "flex", flexDirection: "column" , gap: ".4rem"}}>
+          <Form style={{ display: "flex", flexDirection: "column", gap: ".4rem" }}>
             <label>
               textA
               <Field name="textA" />

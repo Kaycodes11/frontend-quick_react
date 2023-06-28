@@ -15,6 +15,7 @@ const Input = (props) => {
 };
 
 const CustomMaskedInput = (props) => {
+  // console.log(props);
   const { value, onChange, name } = props;
   return (
     <MaskedInput
@@ -28,9 +29,7 @@ const CustomMaskedInput = (props) => {
         onChange(e.target.value);
       }}
     >
-      {(inputProps) => (
-        <Input {...inputProps} type="text" autoComplete="tel-national" />
-      )}
+      {(inputProps) => <Input {...inputProps} type="text" autoComplete="tel-national" />}
     </MaskedInput>
   );
 };
@@ -52,6 +51,7 @@ export default function InputMasking() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
+        {/* When using third party library & provide its neccessary props as below or render here */}
         <Controller
           render={({ field }) => <CustomMaskedInput {...field} />}
           rules={{
@@ -63,9 +63,7 @@ export default function InputMasking() {
           control={control}
         />
 
-        {errors.ControlledMaskedInput && (
-          <p>{errors.ControlledMaskedInput.message}</p>
-        )}
+        {errors.ControlledMaskedInput && <p>{errors.ControlledMaskedInput.message}</p>}
       </div>
       <input type="submit" />
     </form>

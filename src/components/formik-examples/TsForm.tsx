@@ -16,10 +16,7 @@ export default function TsForm() {
           lastName: "",
           email: "",
         }}
-        onSubmit={(
-          values: MyFormValues,
-          { setSubmitting }: FormikHelpers<MyFormValues>
-        ) => {
+        onSubmit={(values: MyFormValues, { setSubmitting }: FormikHelpers<MyFormValues>) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -34,12 +31,7 @@ export default function TsForm() {
           <Field id="lastName" name="lastName" placeholder="Doe" />
 
           <label htmlFor="email">Email</label>
-          <Field
-            id="email"
-            name="email"
-            placeholder="john@acme.com"
-            type="email"
-          />
+          <Field id="email" name="email" placeholder="john@acme.com" type="email" />
 
           <button style={{ marginTop: "4px" }} type="submit">
             Submit

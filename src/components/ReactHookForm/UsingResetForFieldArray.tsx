@@ -35,8 +35,10 @@ export default function UsingResetForFieldArray() {
       <ul>
         {fields.map((item, index) => (
           <li key={item.id}>
+            {/* below is the uncontrolled input */}
             <input {...register(`names.${index}.firstName`)} />
 
+            {/* needless to mention below is controlled input */}
             <Controller
               render={({ field }) => <input {...field} />}
               name={`names.${index}.lastName`}

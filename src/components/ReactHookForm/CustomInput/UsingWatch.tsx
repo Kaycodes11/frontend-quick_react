@@ -26,13 +26,9 @@ export default function UsingWatch() {
   };
 
   console.log("RENDER");
-  
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{ display: "flex", flexDirection: "column" }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column" }}>
       <label>First Name:</label>
       <input {...register("firstName")} placeholder="FirstName" />
       <label>Last Name:</label>

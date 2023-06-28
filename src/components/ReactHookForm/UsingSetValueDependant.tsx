@@ -8,14 +8,13 @@ type FormValues = {
 };
 
 export default function UsingSetValueDependant() {
-  const { watch, register, handleSubmit, setValue, formState } =
-    useForm<FormValues>({
-      defaultValues: {
-        a: "",
-        b: "",
-        c: "",
-      },
-    });
+  const { watch, register, handleSubmit, setValue, formState } = useForm<FormValues>({
+    defaultValues: {
+      a: "",
+      b: "",
+      c: "",
+    },
+  });
   const onSubmit = (data: FormValues) => console.log(data);
   const [a, b] = watch(["a", "b"]);
 
@@ -23,7 +22,7 @@ export default function UsingSetValueDependant() {
     if (formState.touchedFields.a && formState.touchedFields.b && a && b) {
       setValue("c", `${a} ${b}`);
     }
-  }, [setValue, a, b, formState]);
+  }, [a, b, formState.touchedFields.a, formState.touchedFields.b, setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

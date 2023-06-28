@@ -1,4 +1,4 @@
-import { useController, UseControllerProps, useForm } from "react-hook-form";
+import { useController, Field, UseControllerProps, useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 
 const defaultValues = {
@@ -11,8 +11,10 @@ interface FormValues {
   muiPriceInCents: number | string;
 }
 
+// Here, UseControllerProps type takes FormValues (or FieldValues) for MaskedInput's props type
+// since props.field.ref thus MaskedInput expects a forwardRef which is why it's having this issue
 function MaskedInput(props: UseControllerProps<FormValues>) {
-  const { field } = useController(props);
+  const { field, fieldState, formState } = useController(props);
   const { value, onChange, ...rest } = field;
   return (
     <NumericFormat
@@ -38,7 +40,7 @@ export default function NormalizedField() {
       <label style={{ display: "block" }} htmlFor="muiPriceInCents">
         MuiPriceInCents
       </label>
-      <MaskedInput control={control} name="muiPriceInCents" />
+      <MaskedInput control={control} name="muiPriceInCents"  />
       <input type="submit" style={{ marginLeft: "0.4rem" }} />
       <input
         style={{ display: "block", marginTop: 20 }}
@@ -46,9 +48,7 @@ export default function NormalizedField() {
         onClick={() => reset(defaultValues)}
         value="Custom Reset"
       />
-      <pre style={{ color: "#fff", marginTop: 24 }}>
-        {JSON.stringify(watch(), null, 2)}
-      </pre>
+      <pre style={{ color: "#fff", marginTop: 24 }}>{JSON.stringify(watch(), null, 2)}</pre>
     </form>
   );
 }

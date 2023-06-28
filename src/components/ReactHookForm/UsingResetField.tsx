@@ -5,12 +5,12 @@ export default function UsingResetField() {
   const {
     register,
     resetField,
-    formState: { isDirty, isValid, errors, touchedFields, dirtyFields }
+    formState: { isDirty, isValid, errors, touchedFields, dirtyFields },
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      firstName: ""
-    }
+      firstName: "",
+    },
   });
 
   return (
@@ -22,31 +22,19 @@ export default function UsingResetField() {
       <p>dirtyFields:{dirtyFields.firstName && "dirty field"}</p>
       <p>isValid: {isValid && "valid"}</p>
       <p>error: {errors.firstName && "error"}</p>
-      
+
       <hr />
 
-      <button
-        type="button"
-        onClick={() => resetField("firstName", { keepError: true })}
-      >
+      <button type="button" onClick={() => resetField("firstName", { keepError: true })}>
         Reset keep error
       </button>
-      <button
-        type="button"
-        onClick={() => resetField("firstName", { keepTouched: true })}
-      >
+      <button type="button" onClick={() => resetField("firstName", { keepTouched: true })}>
         Reset keep touched fields
       </button>
-      <button
-        type="button"
-        onClick={() => resetField("firstName", { keepDirty: true })}
-      >
+      <button type="button" onClick={() => resetField("firstName", { keepDirty: true })}>
         Reset keep dirty fields
       </button>
-      <button
-        type="button"
-        onClick={() => resetField("firstName", { defaultValue: "New" })}
-      >
+      <button type="button" onClick={() => resetField("firstName", { defaultValue: "New" })}>
         update defaultValue
       </button>
     </form>

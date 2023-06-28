@@ -47,6 +47,7 @@ type FormValues = {
   sex: string;
 };
 
+// Not Working
 export default function Form2() {
   const onSubmit = (data: FormValues) => alert(JSON.stringify(data));
 

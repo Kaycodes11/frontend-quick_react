@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  useForm,
-  UseFormReturn,
-  SubmitHandler,
-  FieldValues,
-} from "react-hook-form";
+import { useForm, UseFormReturn, SubmitHandler, FieldValues } from "react-hook-form";
 
-// this whole type just ref to input tag; for just input tag React.InputHTMLAttributes<HTMLInputElement>, know more from link
-// https://stackoverflow.com/questions/44349409/how-to-pass-rest-of-props-to-react-component-while-also-having-required-props-de
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -22,28 +15,22 @@ type Option = {
   value: string | number | string[];
 };
 
-// this is telling SelectProps will have all the built-in props from Select tag and {options: Option[]}
 type SelectProps = React.DetailedHTMLProps<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement
 > & { options: Option[] };
 
-const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({ options, ...props }, ref) => {
-    return (
-      <select ref={ref} {...props}>
-        {options.map(({ label, value }) => (
-          <option
-            key={Math.random().toString(32).substring(2, 9)}
-            value={value}
-          >
-            {label}
-          </option>
-        ))}
-      </select>
-    );
-  }
-);
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({ options, ...props }, ref) => {
+  return (
+    <select ref={ref} {...props}>
+      {options.map(({ label, value }) => (
+        <option key={Math.random().toString(32).substring(2, 9)} value={value}>
+          {label}
+        </option>
+      ))}
+    </select>
+  );
+});
 
 type FormProps<TFormValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFormValues>;
@@ -57,9 +44,7 @@ const Form = <TFormValues extends Record<string, any> = FormValues>({
 }: FormProps<TFormValues>) => {
   // all the methods from react-hook-form is available within methods thus use it as needed
   const methods = useForm<TFormValues>();
-  return (
-    <form onSubmit={methods.handleSubmit(onSubmit)}>{children(methods)}</form>
-  );
+  return <form onSubmit={methods.handleSubmit(onSubmit)}>{children(methods)}</form>;
 };
 
 type FormValues = {

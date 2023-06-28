@@ -58,11 +58,10 @@ const UseFieldArrayUnregister2: React.FC = () => {
     },
     mode: "onSubmit",
   });
-  const { fields, append, prepend, swap, move, insert, remove } =
-    useFieldArray<FormInputs>({
-      control,
-      name: "data",
-    });
+  const { fields, append, prepend, swap, move, insert, remove } = useFieldArray<FormInputs>({
+    control,
+    name: "data",
+  });
   const [data, setData] = React.useState([]);
   const onSubmit = (data: any) => {
     setData(data);
@@ -88,9 +87,7 @@ const UseFieldArrayUnregister2: React.FC = () => {
               />
             ) : (
               <Controller
-                render={({ field }) => (
-                  <input id={`field${index}`} {...field} />
-                )}
+                render={({ field }) => <input id={`field${index}`} {...field} />}
                 control={control}
                 rules={{
                   required: "This is required",

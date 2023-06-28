@@ -43,7 +43,7 @@ export default function ValidationOnFieldChange() {
     mode: "onChange",
   });
 
-  // show which form control are dirty?
+  // show which form control(s) are dirty?
   const { dirtyFields, touchedFields } = useFormState({ control });
 
   const onSubmit = (data: FormValues) => {
@@ -55,23 +55,17 @@ export default function ValidationOnFieldChange() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="firstName">First Name</label>
-          <input
-            placeholder="bill"
-            {...register("firstName", { required: true })}
-          />
-          {dirtyFields.firstName && (
-            <p>{touchedFields.firstName} Field is dirty.</p>
-          )}
+          <input placeholder="bill" {...register("firstName", { required: true })} />
+          {dirtyFields.firstName && <p>{touchedFields.firstName} Field is dirty.</p>}
           {errors.firstName && <p>{errors.firstName.message}</p>}
         </div>
 
         <div>
           <label htmlFor="lastName">Last Name</label>
-          <input
-            placeholder="luo"
-            {...register("lastName", { required: true })}
-          />
-          ErrorMessage: <ErrorMessage errors={errors} name="lastName" />
+          <input placeholder="luo" {...register("lastName", { required: true })} />
+          <p>
+            ErrorMessage: <ErrorMessage errors={errors} name="lastName" />
+          </p>
           {/* ErrorMessage: <ErrorMessage errors={errors} name="lastName" as={"h1"} /> */}
           {/* <ErrorMessage
             errors={errors}
@@ -126,7 +120,11 @@ export default function ValidationOnFieldChange() {
           style={{ marginRight: "4px" }}
           type="button"
           onClick={() => {
-            setValue("firstName", "Set value by action");
+            setValue("firstName", "S", {
+              shouldValidate: true,
+              shouldDirty: true,
+              shouldTouch: true,
+            });
             setValue("isDeveloper", true);
           }}
         >

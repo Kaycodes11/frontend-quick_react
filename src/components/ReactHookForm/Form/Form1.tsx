@@ -6,12 +6,8 @@ import {
   FieldValues,
 } from "react-hook-form";
 
-// this whole type just ref to input tag; for just input tag React.InputHTMLAttributes<HTMLInputElement>, know more from link
-// https://stackoverflow.com/questions/44349409/how-to-pass-rest-of-props-to-react-component-while-also-having-required-props-de
-type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
+// When needed ref and key the use type as below for just input attributes React.InputHTMLAttributes<HTMLInputElement>
+type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>,HTMLInputElement>;
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => (
   <input ref={ref} {...props} />
@@ -22,7 +18,7 @@ type Option = {
   value: string | number | string[];
 };
 
-// this is telling SelectProps will have all the built-in props from Select tag and {options: Option[]}
+// when has ref and key then DetailedHTMLProps needed to get all the default props from element
 type SelectProps = React.DetailedHTMLProps<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement

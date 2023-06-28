@@ -22,9 +22,7 @@ const ConditionField = ({
 
   return (
     <>
-      {output[index]?.name === "bill" && (
-        <input {...register(`data[${index}].conditional`)} />
-      )}
+      {output[index]?.name === "bill" && <input {...register(`data[${index}].conditional`)} />}
       <input
         {...register(`data[${index}].easyConditional`)}
         style={{ display: output[index]?.name === "bill" ? "block" : "none" }}
@@ -33,7 +31,7 @@ const ConditionField = ({
   );
 };
 
-const UseFieldArrayUnregister: React.FC = () => {
+const FieldArrayRegisterWhen: React.FC = () => {
   const { control, handleSubmit, register } = useForm<FormValues>({
     defaultValues: {
       data: [{ name: "test" }, { name: "test1" }, { name: "test2" }],
@@ -50,14 +48,15 @@ const UseFieldArrayUnregister: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {fields.map((data, index) => (
-        <>
+        <div key={data.id} style={{padding: "1rem", margin: "1em", display: "flex", gap: "1rem"}}>
           <input {...register(`data[${index}].name`)} />
+          {/* Below field will makes some extra field only when written "bill" */}
           <ConditionField control={control} register={register} index={index} />
-        </>
+        </div>
       ))}
       <input type="submit" />
     </form>
   );
 };
 
-export default UseFieldArrayUnregister;
+export default FieldArrayRegisterWhen;

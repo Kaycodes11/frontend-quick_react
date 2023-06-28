@@ -1,4 +1,3 @@
-import React from "react";
 import { useFormik } from "formik";
 
 // eslint-disable-next-line no-lone-blocks
@@ -46,7 +45,9 @@ export default function UsingFormik() {
         onChange={formik.handleChange}
         value={formik.values.email}
       />
-      <button style={{marginTop: "4px"}} type="submit">Submit</button>
+      <button style={{ marginTop: "4px" }} type="submit">
+        Submit
+      </button>
     </form>
   );
 }
