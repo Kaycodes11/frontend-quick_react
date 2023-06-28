@@ -34,13 +34,15 @@ import InviteFriends, { FriendList } from "./components/formik-examples/FormArra
 import InstantFeedback from "./components/formik-examples/InstantFeedback"; // Formik
 import Radio from "./components/formik-examples/Radio"; // Formik
 import TsForm from "./components/formik-examples/TsForm"; // Formik
+import DependantField from "./components/ReactHookForm/DependantField";
+import Form from "./components/ReactHookForm/Form";
 import "./App.css";
 
 // make branch from this branch
 function App() {
   return (
     <div className="App">
-      <FieldArrayMin />
+      <Form />
     </div>
   );
 }

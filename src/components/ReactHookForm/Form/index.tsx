@@ -1,11 +1,4 @@
-import {
-  useForm,
-  Control,
-  SubmitHandler,
-  Controller,
-  useWatch,
-  Resolver,
-} from "react-hook-form";
+import { useForm, Control, SubmitHandler, Controller, useWatch, Resolver } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "./form.css";
@@ -44,7 +37,7 @@ function FirstNameChanged({ control }: { control: Control<FormValues> }) {
     name: "firstName",
     defaultValue: "",
   });
-  // only re-render at the custom hook level, when firstName changes
+  // only re-render when firstName changes
   return <p>Watch: {firstName}</p>;
 }
 
@@ -100,7 +93,6 @@ export default function Form() {
       >
         Trigger
       </button>
-
     </form>
   );
 }
