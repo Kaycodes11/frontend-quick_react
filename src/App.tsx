@@ -6,10 +6,10 @@ import "./App.css";
 function App() {
   // Using a query hook automatically fetches data and returns query values
   // const { data, error, isLoading } = useGetPokemonByNameQuery("bulbasaur");
-  
+
   // Individual hooks are also accessible under the generated endpoints:
   // const { data, error, isLoading } = pokemonApi.endpoints.getPokemonByName
-  
+
   // return (
   //   <div className="App">
   //     {error ? (
@@ -25,7 +25,11 @@ function App() {
   //   </div>
   // );
 
-  return <h1>Todo</h1>
+  return (
+    <div>
+      <h2>Redux Toolkit with RTK Query</h2>
+    </div>
+  );
 }
 
 export default App;

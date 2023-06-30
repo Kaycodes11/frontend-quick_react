@@ -5,6 +5,7 @@ export const pokemonApi = createApi({
   reducerPath: "pokemonApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
   endpoints: (builder) => ({
+    // builder.query(ResponseType = any, queryArg = string): thus (name: inferred string )
     getPokemonByName: builder.query<any, string>({
       query: (name) => `pokemon/${name}`,
     }),
@@ -12,5 +13,13 @@ export const pokemonApi = createApi({
 });
 
 // https://redux-toolkit.js.org/rtk-query/usage/queries
-// Export hooks for usage in functional components, i.e. auto-generated based on the defined endpoints
+// "use" + getPokemonByName => GetPokemonByName + "Query"
 export const { useGetPokemonByNameQuery } = pokemonApi;
+
+// https://codesandbox.io/s/github/reduxjs/redux-toolkit/tree/master/examples/query/react/kitchen-sink?from-embed=&file=/src/mocks/setupTests.tsx
+// https://codesandbox.io/s/github/reduxjs/redux-toolkit/tree/master/examples/query/react/optimistic-update?from-embed
+
+// # usage with the TypeScript:  https://redux-toolkit.js.org/rtk-query/usage-with-typescript
+// # using queries: https://redux-toolkit.js.org/rtk-query/usage/queries
+// # using mutation: https://redux-toolkit.js.org/rtk-query/usage/mutations
+// # openApi: https://redux-toolkit.js.org/rtk-query/usage/code-generation
