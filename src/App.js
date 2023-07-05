@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ColorModeContext, useMode } from "./theme";
 import { Routes, Route } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -18,7 +17,7 @@ import Calendar from "./scenes/calendar";
 
 function App() {
   const [theme, colorMode] = useMode(); // colorMode = { toggleColorMode: () => {} }
-  const [isSidebar, setIsSidebar] = useState(true);
+
   return (
     /* now any type of value could be given value={}; so colorMode given here so that any of the child
     components can use colorMode.toggleColorMode function to update "light/dark" mode

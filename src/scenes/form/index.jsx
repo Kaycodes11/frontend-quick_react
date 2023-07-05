@@ -1,5 +1,4 @@
-import { Box, Button, IconButton, TextField } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
+import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
