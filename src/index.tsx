@@ -8,7 +8,7 @@ import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <PDFViewer style={{ flex: 1 }}>
+    <PDFViewer style={{ flex: 1, width: "100vw", height: "100vh" }}>
       <App />
     </PDFViewer>
   </React.StrictMode>
