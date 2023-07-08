@@ -13,12 +13,7 @@ const styles = StyleSheet.create({
     flexGrow: 9,
     textTransform: "uppercase",
   },
-  linkColumn: {
-    flexDirection: "column",
-    flexGrow: 2,
-    alignSelf: "flex-end",
-    justifySelf: "flex-end",
-  },
+
   name: {
     fontSize: 24,
     fontFamily: "Lato Bold",
@@ -27,6 +22,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     justifySelf: "flex-end",
     fontFamily: "Lato",
+    marginBottom: 5,
   },
   link: {
     fontFamily: "Lato",
@@ -36,16 +32,27 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     justifySelf: "flex-end",
   },
+
+  linkColumn: {
+    flexDirection: "column",
+    flexGrow: 2,
+    alignSelf: "flex-end",
+    justifySelf: "flex-end",
+    textDecorationStyle: "none"
+  },
 });
 
 const Header = () => (
   <View style={styles.container}>
     <View style={styles.detailColumn}>
       <Text style={styles.name}>Pallab Kayal</Text>
-      <Text style={styles.subtitle}>@Full-Stack developer</Text>
+      <Text style={styles.subtitle}>Full-Stack developer</Text>
+      <Text style={styles.subtitle}>Email: pallabk12@gmail.com</Text>
+      <Text style={styles.subtitle}>Mobile: +91 9330095700</Text>
+
     </View>
-    <View style={styles.linkColumn}>
-      <Link src="mailto:pallabk12@gmail.com">pallabk12@gmail.com</Link>
+    <View style={[styles.linkColumn, { marginBottom: 10 }]}>
+      {/* <Link src="mailto:pallabk12@gmail.com">pallabk12@gmail.com</Link> */}
     </View>
   </View>
 );

@@ -3,20 +3,11 @@ import { Text, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: "Oswald",
+    fontFamily: 'Lato Bold',
     fontSize: 14,
-    // marginBottom: 10,
-    // marginLeft: 10,
-    // marginTop: 10,
-    margin: "10 0 10 10",
-    textTransform: "uppercase",
-  },
-  mail: {
-    fontFamily: "Oswald",
-    fontSize: 14,
-    textTransform: "uppercase",
-    display: "flex",
-  },
+    marginBottom: 10,
+    textTransform: 'uppercase',
+  }
 });
 
 const Title = ({ children }: { children: React.ReactNode }) => (

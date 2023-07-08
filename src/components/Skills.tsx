@@ -6,7 +6,7 @@ import List, { Item } from "./List";
 const styles = StyleSheet.create({
   title: {
     fontFamily: "Lato Bold",
-    fontSize: 11,
+    fontSize: 12,
     marginBottom: 10,
   },
   skills: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
 const SkillEntry = ({ name, skills }: { name: string; skills: string[] }) => (
   <View>
-    <Text style={styles.title}>{name}</Text>
+    {name && <Text style={styles.title}>{name}</Text>}
     <List>
       {skills.map((skill, i) => (
         <Item key={i}>{skill}</Item>
@@ -31,13 +31,23 @@ const Skills = () => (
   <View>
     <Title>Skills</Title>
     <SkillEntry
-      name="Combat Abilities"
+      name=""
       skills={[
-        "Completed Jedi Master training and built a lightsaber from scratch in order to do battle against the Empire",
-        "Defeated the Rancor and rescued Princess Leia from Jabba the Hutt",
-        "Competent fighter pilot as well as an excelent shot with nearly any weapon",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Next",
+        "Angular",
+        "Node",
+        "Nest",
+        "PostgreSQL",
+        "MongoDB",
       ]}
     />
+
+    <SkillEntry name="Interests" skills={["Open-source contribution", "Flutter"]} />
   </View>
 );
 

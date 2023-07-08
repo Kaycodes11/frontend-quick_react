@@ -19,15 +19,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const Education = () => {
+const About = () => {
   return (
     <View style={styles.container}>
-      <Title>Education</Title>
-      <Text style={styles.school}>B.Com (accounting)</Text>
-      <Text style={styles.degree}>2016</Text>
+      <Title>About</Title>
+      <Text style={styles.school}>Jedi Academy</Text>
+      <Text style={styles.degree}>Jedi Master</Text>
       <Text style={styles.candidate}>A long, long time ago</Text>
     </View>
   );
 };
 
-export default Education;
+export default About;
