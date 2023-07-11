@@ -106,7 +106,7 @@ const experienceData = [
       "Woked closely with UI/UX, backend teams & co-lead a medical application that relies on stripe features heavily",
       "Built a component library for our UI team to use across different projects",
       "Audited and debugged exisiting webapps to find performance bottlenecks and improved without any breaking changes",
-      "Added units to some existing projects to reduce the repeatative bugs",
+      "Added unit tests to some existing projects to reduce the repeatative bugs",
     ],
     position: "Front End Developer",
   },
@@ -148,9 +148,8 @@ const Experience = () => {
     <View style={styles.container}>
       <Title>About Me</Title>
       <Text style={styles.aboutTitle}>
-        Logical and results-driven full stack developer dedicated to building user-engaging websites
-        and applications. Judicious and creative when crafting effective and performant websites,
-        apps.
+        Logical and results-driven Front end developer dedicated to building user-engaging websites
+        and applications. Judicious and creative when crafting effective and performant websites.
       </Text>
 
       <Title>Experience</Title>

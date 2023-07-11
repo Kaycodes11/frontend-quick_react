@@ -39,15 +39,15 @@ const Skills = () => (
         "TypeScript",
         "React",
         "Next",
-        "Angular",
-        "Node",
-        "Nest",
-        "PostgreSQL",
-        "MongoDB",
+        "Angular"
+        // "Node",
+        // "Nest",
+        // "PostgreSQL",
+        // "MongoDB",
       ]}
     />
 
-    <SkillEntry name="Interests" skills={["Open-source contribution", "Flutter"]} />
+    <SkillEntry name="Interests" skills={["React Native", "Flutter"]} />
   </View>
 );
 

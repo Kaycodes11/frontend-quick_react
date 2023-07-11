@@ -46,7 +46,7 @@ const Header = () => (
   <View style={styles.container}>
     <View style={styles.detailColumn}>
       <Text style={styles.name}>Pallab Kayal</Text>
-      <Text style={styles.subtitle}>Full-Stack developer</Text>
+      <Text style={styles.subtitle}>Front end developer</Text>
       <Text style={styles.subtitle}>Email: pallabk12@gmail.com</Text>
       <Text style={styles.subtitle}>Mobile: +91 9330095700</Text>
 

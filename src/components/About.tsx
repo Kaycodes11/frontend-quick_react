@@ -23,9 +23,9 @@ const About = () => {
   return (
     <View style={styles.container}>
       <Title>About</Title>
-      <Text style={styles.school}>Jedi Academy</Text>
-      <Text style={styles.degree}>Jedi Master</Text>
-      <Text style={styles.candidate}>A long, long time ago</Text>
+      <Text style={styles.school}>Front end developer</Text>
+      <Text style={styles.degree}>UI developer</Text>
+      <Text style={styles.candidate}>MEAN/MERN developer</Text>
     </View>
   );
 };
