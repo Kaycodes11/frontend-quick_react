@@ -103,10 +103,10 @@ const experienceData = [
     date: "Aug 12, 2021 - present",
     details: [
       "Migrated a large legacy webapp to modern tech stack e.g. React, TypeScript, TailwindCSS, Redux Toolkit",
-      "Woked closely with UI/UX, backend teams & co-lead a medical application that relies on stripe features heavily",
+      "Worked closely with UI/UX, backend teams & co-lead a medical application that relies on stripe features heavily",
       "Built a component library for our UI team to use across different projects",
-      "Audited and debugged exisiting webapps to find performance bottlenecks and improved without any breaking changes",
-      "Added unit tests to some existing projects to reduce the repeatative bugs",
+      "Audited and debugged existing webapps to find performance bottlenecks and improved without any breaking changes",
+      "Added unit tests to some existing projects to reduce the repetitive bugs",
     ],
     position: "Front End Developer",
   },
@@ -116,7 +116,7 @@ const experienceData = [
     details: [
       "Implemented realtime updates with Socket.io for social media webapp that handles huge traffic",
       "Increased the api performance across several project with in-memory Redis cache",
-      "Worked with onshore teams to migreate old Angular.js app to latest Angular framework",
+      "Worked with onshore teams to migrate old Angular.js app to latest Angular framework",
       "Migrated one of our major internal product to Next.js for better SEO and performance",
     ],
     position: "Front End Developer",
@@ -137,7 +137,7 @@ const experienceData = [
   //   date: "A long time ago...",
   //   details: [
   //     "Replaced damaged power converters",
-  //     "Performed menial labor thoughout the farm in order to ensure its continued operation",
+  //     "Performed menial labor throughout the farm in order to ensure its continued operation",
   //   ],
   //   position: "Moisture Farmer",
   // },
