@@ -1,12 +1,6 @@
-import './App.css';
-
 // this is just blank react app
 function App() {
-  return (
-    <div className="App">
-      App
-    </div>
-  );
+  return <div className="bg-green-100">App</div>;
 }
 
 export default App;
