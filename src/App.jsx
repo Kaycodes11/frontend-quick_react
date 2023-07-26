@@ -5,6 +5,7 @@ import CreateTask from "./components/CreateTask";
 import ListTasks from "./components/ListTasks";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+// to add sorting follow: https://github.dev/coopercodes/ReactDndKitList
 function App() {
   const [tasks, setTasks] = React.useState([]);
   return (
