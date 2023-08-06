@@ -1,4 +1,5 @@
-// this is just blank react app
+import React from "react";
+
 function App() {
   return <div className="bg-green-100">App</div>;
 }
