@@ -1,0 +1,96 @@
+@import "../../../styles/base.scss";
+
+:root {
+  --color-gray: #8c97b7;
+  --color-blue: #1c38f1;
+  --color-green: #1fcdb0;
+  --input-height: 3rem;
+
+  // transition applied to css property/properties but not css variables
+  --transition-duration: 0.3s;
+  --transition-easing: cubic-bezier(0.5, 0, 0.5, 1);
+  --animation-duration: 0.8s;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9fbff;
+}
+
+.ui-form {
+  background: #ffffff;
+  box-shadow: 0 0.5rem 1rem #0003;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr;
+  grid-column-gap: 1rem;
+  grid-template-areas: "input button";
+
+  // to animate movement use transform property (not layout changing properties like top, left, padding, width, height etc )
+  // opacity is another nice animateble property
+
+  transition: all var(--transition-duration) var(--transition-easing);
+  // will-change property in CSS optimizes animations by letting the browser know which properties and elements are just about to be manipulated, potentially increasing the performance of that particular operation.
+  will-change: transform;
+
+  // by default anything within the form will have --color: var(--color-gray)
+  --color: var(--color-gray);
+
+  // whenever :focus-within state is active on any element within ".ui-form" then
+  // all element within ".ui-form" will have the below color
+  &:focus-within {
+    --color: var(--color-blue);
+  }
+}
+
+.ui-input {
+  grid-area: input;
+  padding: 0 1rem;
+  height: var(--input-height);
+  border: 2px solid var(--color);
+  border-radius: 0.25rem;
+  outline: none;
+  // here used border-color instead of border as border has width which alters/adds to the layout
+  transition-property: border-color;
+  transition-duration: 0.3s;
+}
+
+.ui-button {
+  grid-area: button;
+  border: none;
+  padding: 0 1rem;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  height: var(--input-height);
+  background-color: var(--color);
+
+  transition-property: background-color, opacity, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: linear, linear, ease-in-out;
+  // transition-delay: 0.5s; // if need then delay the button's animation with this property
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.1); // 1 means no scale
+  }
+
+  // :active state refers to when button is actuall clicked
+  &:active {
+    // here "transform will depend on the element itself not parent" (it'll use its own width-height to move on the mentioned axis)
+    // so here it'll move up or down based on the element's height itself only
+    transform: translateY(10%);
+  }
+}
+
+[data-show]:not([data-active]) {
+  display: none;
+}
+
+.ui-form {
+  overflow: hidden;
+}
