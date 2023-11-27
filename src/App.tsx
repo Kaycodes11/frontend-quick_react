@@ -1,4 +1,3 @@
-import React from "react";
 import Text from "./components/Text";
 import Text2 from "./components/Text2";
 
