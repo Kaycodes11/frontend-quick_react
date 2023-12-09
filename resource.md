@@ -17,3 +17,5 @@ To know eslint error , run "npm run lint" or just use "npm run lint:fix" to fix 
 3. npx husky add .husky/pre-commit "npx lint-staged" : it will create the pre-commit hook within .husky folder
 
 4. add lint-staged property within package.json
+
+5. now just add, commit and push to github repo
