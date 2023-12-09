@@ -5,8 +5,10 @@ import React from "react";
 // import StatesAnimation from "./components/04-states";
 
 // import LayoutAnimation from "./components/layout";
+// import Reactive from "./components/reactive";
 // import InFlight from "./components/inflight";
 import Dribble from "./components/dribble";
+import Framer from "./components/framer/Framer";
 
 function App() {
   return (
@@ -16,9 +18,14 @@ function App() {
       {/* <ChoreoGraphy /> */}
       {/* Above steps are what needed to be understood before the final animation i.e. StatesAnimation */}
       {/* <StatesAnimation /> */}
-
       {/* <LayoutAnimation /> */}
-      <Dribble />
+      {/* <Reactive /> */}
+      {/* <Dribble /> */}
+
+      {/* Framer Motion: starts here */}
+      <Framer />
+
+      {/* Framer Motion: ends here */}
     </>
   );
 }

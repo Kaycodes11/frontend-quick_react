@@ -20,7 +20,7 @@ const StatesAnimation = () => {
       el.dataset.active = true;
     });
 
-    // based on somem condition , set the error or success
+    // based on some condition , set the error or success
 
     if (state === "subscribing") {
       console.log("STATE", state);
@@ -39,7 +39,11 @@ const StatesAnimation = () => {
   return (
     <form className="ui-form" data-state="subscribe" ref={formEl}>
       <input className="ui-input" type="email" placeholder="your@email.com" />
-      <button className="ui-button" type="button" onClick={() => handleState("subscribing")}>
+      <button
+        className="ui-button"
+        type="button"
+        onClick={() => handleState("subscribing")}
+      >
         <span data-show="subscribe" data-active="true">
           Subscribe
         </span>

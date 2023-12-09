@@ -24,20 +24,24 @@ h1 {
   text-align: center;
 }
 
-h1:first-child {
-  animation: first-heading 4s both;
-  clip-path: polygon();
-}
+// h1:first-child {
+//   animation: first-heading 4s both;
+//   clip-path: polygon();
+// }
 
-h1:nth-child(2) {
-  animation: second-heading 4s both;
-}
+// h1:nth-child(2) {
+//   animation: second-heading 4s both;
+// }
 
 @keyframes first-heading {
+  // first, at from / 0%  till 50% => the animation will behave based on below values on "clip-path" and its behavior / type of animation it displays, dependant on "polygon values"
   from {
     // clip path works like a mask in the photoshop so here it will reveal-hide this much
+
+    // It looks like typing animation that is solely due to "clip-path" :: and it will reveal-hide based on these values
     clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
   }
+  // 50% to 100 (i.e. to) => the animation will behave based on below values
   50%,
   to {
     // then here it will reveal-hide this much
@@ -46,10 +50,12 @@ h1:nth-child(2) {
 }
 
 @keyframes second-heading {
+  // 0 till before 50%, it will have below style ( here opacity: 0 )
   from,
   50% {
     opacity: 0;
   }
+  // from 50% to 100% , it will have below style ( here opacity: 1 )
   to {
     opacity: 1;
   }
@@ -58,8 +64,10 @@ h1:nth-child(2) {
 @keyframes headings {
   from,
   50% {
-    transform: translateY(50%) scale(1.5);
+    transform: translateY(50%) scale(1.5); /* order matters so first it'll "move up" at Y axis & then "scale" */
   }
+
+  // here as reached 50%; reset transform ( back to how it as before applying animation )
 
   to {
     transform: none;
