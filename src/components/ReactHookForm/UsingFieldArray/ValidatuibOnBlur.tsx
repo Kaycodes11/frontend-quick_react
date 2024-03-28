@@ -24,20 +24,24 @@ const ValidatuibOnBlur = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="firstName">First Name</label>
-          <input placeholder="bill" {...register("firstName", { required: true, maxLength: 2 })} />
+          <input
+            placeholder="bill"
+            {...register("firstName", { required: true, maxLength: 2 })}
+          />
           {errors.firstName && <p>This is required</p>}
         </div>
 
         <div>
           <label htmlFor="lastName">Last Name</label>
-          <input placeholder="luo" {...register("lastName", { required: true })} />
+          <input
+            placeholder="luo"
+            {...register("lastName", { required: true })}
+          />
           {errors.lastName && <p>This is required</p>}
         </div>
 
         <div>
-          <label htmlFor="email" placeholder="bluebill1049@hotmail.com">
-            Email
-          </label>
+          <label htmlFor="email">Email</label>
           <input {...register("email", { required: true })} />
           {errors.email && <p>This is required</p>}
         </div>

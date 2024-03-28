@@ -55,14 +55,22 @@ export default function ValidationOnFieldChange() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="firstName">First Name</label>
-          <input placeholder="bill" {...register("firstName", { required: true })} />
-          {dirtyFields.firstName && <p>{touchedFields.firstName} Field is dirty.</p>}
+          <input
+            placeholder="bill"
+            {...register("firstName", { required: true })}
+          />
+          {dirtyFields.firstName && (
+            <p>{touchedFields.firstName} Field is dirty.</p>
+          )}
           {errors.firstName && <p>{errors.firstName.message}</p>}
         </div>
 
         <div>
           <label htmlFor="lastName">Last Name</label>
-          <input placeholder="luo" {...register("lastName", { required: true })} />
+          <input
+            placeholder="luo"
+            {...register("lastName", { required: true })}
+          />
           <p>
             ErrorMessage: <ErrorMessage errors={errors} name="lastName" />
           </p>
@@ -76,9 +84,7 @@ export default function ValidationOnFieldChange() {
         </div>
 
         <div>
-          <label htmlFor="email" placeholder="bluebill1049@hotmail.com">
-            Email
-          </label>
+          <label htmlFor="email">Email</label>
           <input {...register("email", { required: true })} />
           {errors.email && <p>{errors.email.message}</p>}
         </div>
