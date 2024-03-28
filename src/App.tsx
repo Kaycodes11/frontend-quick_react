@@ -50,6 +50,7 @@ import Stepper from "./components/StepperForm/Stepper";
 import StepperControl from "./components/StepperForm/StepperControl";
 import StepperContext from "./contexts/StepperContext";
 import Payment from "./components/StepperForm/Payment";
+import Masking from "./components/InputMasking/Masking";
 
 // make branch from this branch
 function App() {
@@ -87,30 +88,34 @@ function App() {
   );
 
   return (
-    <div className="md:w-1/2 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
-      {/* <WatchFieldOrFields /> */}
-      <div className="container horizontal mt-5">
-        <Stepper steps={steps} currentStep={currentStep} />
+    // <div className="md:w-1/2 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
+    //   {/* <WatchFieldOrFields /> */}
+    //   <div className="container horizontal mt-5">
+    //     <Stepper steps={steps} currentStep={currentStep} />
 
-        {/* Display Components */}
+    //     {/* Display Components */}
 
-        <div className="my-10 p-10">
-          <StepperContext.Provider
-            value={{ userData, setUserData, finalData, setFinalData }}
-          >
-            {displayStep(currentStep)}
-          </StepperContext.Provider>
-        </div>
-      </div>
+    //     <div className="my-10 p-10">
+    //       <StepperContext.Provider
+    //         value={{ userData, setUserData, finalData, setFinalData }}
+    //       >
+    //         {displayStep(currentStep)}
+    //       </StepperContext.Provider>
+    //     </div>
+    //   </div>
 
-      {currentStep !== steps.length && (
-        <StepperControl
-          currentStep={currentStep}
-          handleClick={handleClick}
-          steps={steps}
-        />
-      )}
-    </div>
+    //   {currentStep !== steps.length && (
+    //     <StepperControl
+    //       currentStep={currentStep}
+    //       handleClick={handleClick}
+    //       steps={steps}
+    //     />
+    //   )}
+    // </div>
+
+    <>
+      <Masking />
+    </>
   );
 }
 
