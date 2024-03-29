@@ -1,53 +1,72 @@
-import { useFormik } from "formik";
+import {useFormik} from "formik";
+import React from 'react';
+import {Button, TextField, Box, Container, Typography} from '@mui/material';
 
 // eslint-disable-next-line no-lone-blocks
-{
-  /* <Field>, <FastField>, <ErrorMessage>, connect(), and <FieldArray> will NOT work with useFormik() as they all require React Context */
-}
+
+/* <Field>, <FastField>, <ErrorMessage>, connect(), and <FieldArray> will NOT work with useFormik() as they all require React Context */
 
 // use useFormik() when don't want to use above built-in apis form Formik
 
 // WORKING
+
+
+interface FormValues {
+    firstName: string;
+    lastName: string;
+    email: string;
+}
+
 export default function UsingFormik() {
-  const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-  return (
-    <form onSubmit={formik.handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
-      <label htmlFor="firstName">First Name</label>
-      <input
-        id="firstName"
-        name="firstName"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.firstName}
-      />
-      <label htmlFor="lastName">Last Name</label>
-      <input
-        id="lastName"
-        name="lastName"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.lastName}
-      />
-      <label htmlFor="email">Email Address</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        onChange={formik.handleChange}
-        value={formik.values.email}
-      />
-      <button style={{ marginTop: "4px" }} type="submit">
-        Submit
-      </button>
-    </form>
-  );
+    const formik = useFormik<FormValues>({
+        initialValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+        },
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
+
+    return (
+        <Container maxWidth="sm" style={{marginTop: '2rem'}}>
+            <Typography variant="h4" component="h1" gutterBottom>
+                Using useFormik
+            </Typography>
+            <form onSubmit={formik.handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
+                <TextField
+                    id="firstName"
+                    name="firstName"
+                    label="First Name"
+                    variant="outlined"
+                    fullWidth
+                    onChange={formik.handleChange}
+                    value={formik.values.firstName}
+                />
+                <TextField
+                    id="lastName"
+                    name="lastName"
+                    label="Last Name"
+                    variant="outlined"
+                    fullWidth
+                    onChange={formik.handleChange}
+                    value={formik.values.lastName}
+                />
+                <TextField
+                    id="email"
+                    name="email"
+                    label="Email Address"
+                    variant="outlined"
+                    fullWidth
+                    type="email"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                />
+                <Button type="submit" variant="contained" color="primary">
+                    Submit
+                </Button>
+            </form>
+        </Container>
+    );
 }

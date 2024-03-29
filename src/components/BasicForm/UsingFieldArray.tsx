@@ -1,61 +1,61 @@
-// @ts-nocheck
-import { Formik, Form, Field, FieldArray } from "formik";
+import React from "react";
+import {Formik, Form, Field, FieldArray, FormikHelpers} from "formik";
+import {Button, Container, TextField, Box, Typography} from "@mui/material";
 
-// Here is an example of a form with an editable list.
-// Next to each input are buttons for insert and remove.
-// If the list is empty, there is a button to add an item.
+interface FormValues {
+    friends: string[];
+}
 
-// WORKING
-const UsingFormArray = () => (
-  <div>
-    <h1>Friend List</h1>
-    <Formik
-      initialValues={{ friends: ["jared", "ian", "brent"] }}
-      onSubmit={(values) =>
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-        }, 500)
-      }
-      render={({ values }) => (
-        <Form>
-          <FieldArray
-            name="friends"
-            render={(arrayHelpers) => (
-              <div>
-                {values.friends && values.friends.length > 0 ? (
-                  values.friends.map((friend, index) => (
-                    <div key={index}>
-                      <Field name={`friends.${index}`} />
-                      <button
-                        type="button"
-                        onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
-                      >
-                        -
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
-                      >
-                        +
-                      </button>
-                    </div>
-                  ))
-                ) : (
-                  <button type="button" onClick={() => arrayHelpers.push("")}>
-                    {/* show this when user has removed all friends from the list */}
-                    Add a friend
-                  </button>
-                )}
-                <div>
-                  <button type="submit">Submit</button>
-                </div>
-              </div>
+const UsingFormArray: React.FC = () => (
+    <Container maxWidth="sm">
+        <Typography variant="h4" sx={{my: 4, textAlign: 'center'}}>
+            Friend List
+        </Typography>
+        <Formik
+            initialValues={{friends: ["jared", "ian", "brent"]}}
+            onSubmit={(values: FormValues, {setSubmitting}: FormikHelpers<FormValues>) => {
+                setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    setSubmitting(false);
+                }, 500);
+            }}
+        >
+            {({values}) => (
+                <Form>
+                    <FieldArray
+                        name="friends"
+                        render={(arrayHelpers) => (
+                            <Box>
+                                {values.friends && values.friends.length > 0 ? (
+                                    values.friends.map((friend, index) => (
+                                        <Box key={index} display="flex" alignItems="center" gap={2} mb={2}>
+                                            <Field as={TextField} name={`friends.${index}`} variant="outlined"
+                                                   fullWidth/>
+                                            <Button variant="outlined" color="error"
+                                                    onClick={() => arrayHelpers.remove(index)}>
+                                                -
+                                            </Button>
+                                            <Button variant="outlined" color="primary"
+                                                    onClick={() => arrayHelpers.insert(index, "")}>
+                                                +
+                                            </Button>
+                                        </Box>
+                                    ))
+                                ) : (
+                                    <Button variant="outlined" onClick={() => arrayHelpers.push("")} sx={{mb: 2}}>
+                                        Add a friend
+                                    </Button>
+                                )}
+                                <Button type="submit" variant="contained" color="primary">
+                                    Submit
+                                </Button>
+                            </Box>
+                        )}
+                    />
+                </Form>
             )}
-          />
-        </Form>
-      )}
-    />
-  </div>
+        </Formik>
+    </Container>
 );
 
 export default UsingFormArray;

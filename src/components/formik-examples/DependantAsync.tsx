@@ -1,85 +1,104 @@
-// @ts-nocheck
 import React from "react";
-import { Formik, Field, Form, useField, useFormikContext } from "formik";
+import {Formik, Field, Form, useFormikContext} from "formik";
 
-async function fetchNewTextC(a, b) {
-  await new Promise((r) => setTimeout(r, 500));
-  return `textA: ${a}, textB: ${b}`;
+// Step 1: Define a TypeScript interface for your form values.
+interface FormValues {
+    textA: string;
+    textB: string;
+    textC: string;
 }
 
-const MyField = (props: any) => {
-  const {
-    values: { textA, textB },
-    setFieldValue,
-  } = useFormikContext();
-  const [field, meta] = useField(props);
+async function fetchNewTextC(a: string, b: string): Promise<string> {
+    await new Promise((r) => setTimeout(r, 500));
+    return `textA: ${a}, textB: ${b}`;
+}
 
-  React.useEffect(() => {
-    let isCurrent = true;
-    // your business logic around when to fetch goes here.
-    if (textA.trim() !== "" && textB.trim() !== "") {
-      fetchNewTextC(textA, textB).then((textC) => {
-        if (!!isCurrent) {
-          // prevent setting old values
-          setFieldValue(props.name, textC);
+// Fix: Explicitly type the props of MyField component.
+const MyField = ({name}: { name: keyof FormValues }) => {
+    // Step 2: Use FormValues interface to type the context.
+    const {values, setFieldValue} = useFormikContext<FormValues>();
+    React.useEffect(() => {
+        let isCurrent = true;
+        if (values.textA.trim() !== "" && values.textB.trim() !== "") {
+            fetchNewTextC(values.textA, values.textB).then((textC) => {
+                if (isCurrent) {
+                    setFieldValue(name, textC);
+                }
+            });
         }
-      });
-    }
-    return () => {
-      isCurrent = false;
-    };
-  }, [textB, textA, setFieldValue, props.name]);
+        return () => {
+            isCurrent = false;
+        };
+    }, [values.textA, values.textB, setFieldValue, name]);
 
-  return (
-    <>
-      <input {...props} {...field} />
-      {!!meta.touched && !!meta.error && <div>{meta.error}</div>}
-    </>
-  );
+    return (
+        <input
+            value={values[name]}
+            onChange={(e) => setFieldValue(name, e.target.value)}
+            className="inputField"
+        />
+    );
 };
 
-// WORKING
-export default function DependantAsnyc() {
-  const initialValues = { textA: "", textB: "", textC: "" };
+// Styles
+const styles: Record<string, React.CSSProperties> = {
+    app: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        backgroundColor: "#f7f7f7",
+    },
+    form: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "10px",
+        padding: "20px",
+        backgroundColor: "#fff",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    },
+    input: {
+        padding: "10px",
+        width: "300px",
+        margin: "5px 0",
+        borderRadius: "4px",
+        border: "1px solid #ccc",
+    },
+    label: {
+        textAlign: "left",
+        width: "300px",
+        marginBottom: "5px",
+    },
+    button: {
+        padding: "10px 20px",
+        border: "none",
+        borderRadius: "4px",
+        cursor: "pointer",
+        backgroundColor: "#007bff",
+        color: "white",
+    },
+};
 
-  return (
-    <div className="App">
-      <Formik
-        initialValues={initialValues}
-        onSubmit={async (values) => alert(JSON.stringify(values, null, 2))}
-      >
-        <div className="section">
-          <h1>Dependent Formik fields with Async Request</h1>
-          <p style={{ color: "#555" }}>
-            This is an example of a complex dependent field in Formik v2. In this example, textC's
-            value is set by making an async API request based on the current values of fields textA
-            and textB.
-          </p>
-          <div>
-            <small>
-              <em>Instructions: enter values for textA, and textB, and then watch textC</em>
-            </small>
-          </div>
-          <Form style={{ display: "flex", flexDirection: "column", gap: ".4rem" }}>
-            <label>
-              textA
-              <Field name="textA" />
-            </label>
-            <label>
-              textB
-              <Field name="textB" />
-            </label>
-            <label>
-              textC
-              <MyField name="textC" />
-              <small>
-                (the result of <code>fetchNewTextC(textA, textB))</code>
-              </small>
-            </label>
-            <button type="submit">Submit</button>
-          </Form>
+export default function DependantAsync() {
+    return (
+        <div style={styles.app}>
+            <Formik
+                initialValues={{textA: "", textB: "", textC: ""}}
+                onSubmit={async (values) => alert(JSON.stringify(values, null, 2))}
+            >
+                <Form style={styles.form}>
+                    <Field name="textA" placeholder="Text A" style={styles.input}/>
+                    <Field name="textB" placeholder="Text B" style={styles.input}/>
+                    <label style={styles.label}>
+                        Text C (Auto-filled based on Text A and B):
+                        <MyField name="textC"/>
+                    </label>
+                    <button type="submit" style={styles.button}>Submit</button>
+                </Form>
+            </Formik>
         </div>
-      </Formik>
-    </div>
-  );
+    );
 }

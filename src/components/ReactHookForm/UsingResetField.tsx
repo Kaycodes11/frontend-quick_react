@@ -1,42 +1,69 @@
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
+
+const styles = {
+    form: {
+        display: "flex",
+        flexDirection: "column" as const,
+        alignItems: "center",
+        gap: "10px",
+        marginTop: "20px",
+    },
+    input: {
+        padding: "10px",
+        borderRadius: "4px",
+        border: "1px solid #ccc",
+        width: "200px",
+    },
+    button: {
+        padding: "10px",
+        borderRadius: "4px",
+        border: "1px solid #007bff",
+        backgroundColor: "#007bff",
+        color: "#ffffff",
+        cursor: "pointer",
+        marginTop: "5px",
+    },
+    feedback: {
+        marginTop: "10px",
+    },
+};
 
 export default function UsingResetField() {
-  const {
-    register,
-    resetField,
-    formState: { isDirty, isValid, errors, touchedFields, dirtyFields },
-  } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      firstName: "",
-    },
-  });
+    const {
+        register,
+        resetField,
+        formState: {isDirty, isValid, errors, touchedFields, dirtyFields},
+    } = useForm({
+        mode: "onChange",
+        defaultValues: {
+            firstName: "",
+        },
+    });
 
-  return (
-    <form>
-      <input {...register("firstName", { required: true })} />
-
-      <p>isDirty: {isDirty && "dirty"}</p>
-      <p>touchedFields: {touchedFields.firstName && "touched field"}</p>
-      <p>dirtyFields:{dirtyFields.firstName && "dirty field"}</p>
-      <p>isValid: {isValid && "valid"}</p>
-      <p>error: {errors.firstName && "error"}</p>
-
-      <hr />
-
-      <button type="button" onClick={() => resetField("firstName", { keepError: true })}>
-        Reset keep error
-      </button>
-      <button type="button" onClick={() => resetField("firstName", { keepTouched: true })}>
-        Reset keep touched fields
-      </button>
-      <button type="button" onClick={() => resetField("firstName", { keepDirty: true })}>
-        Reset keep dirty fields
-      </button>
-      <button type="button" onClick={() => resetField("firstName", { defaultValue: "New" })}>
-        update defaultValue
-      </button>
-    </form>
-  );
+    return (
+        <div style={styles.form}>
+            <input {...register("firstName", {required: "First name is required"})} style={styles.input}/>
+            <div style={styles.feedback}>
+                <p>isDirty: {isDirty ? "Yes" : "No"}</p>
+                <p>touchedFields: {touchedFields.firstName ? "Yes" : "No"}</p>
+                <p>dirtyFields: {dirtyFields.firstName ? "Yes" : "No"}</p>
+                <p>isValid: {isValid ? "Yes" : "No"}</p>
+                <p>error: {errors.firstName ? "First name is required" : "No error"}</p>
+            </div>
+            <hr style={{width: "100%", marginTop: "20px"}}/>
+            <button style={styles.button} onClick={() => resetField("firstName", {keepError: true})}>
+                Reset (Keep Error)
+            </button>
+            <button style={styles.button} onClick={() => resetField("firstName", {keepTouched: true})}>
+                Reset (Keep Touched)
+            </button>
+            <button style={styles.button} onClick={() => resetField("firstName", {keepDirty: true})}>
+                Reset (Keep Dirty)
+            </button>
+            <button style={styles.button} onClick={() => resetField("firstName", {defaultValue: "New"})}>
+                Update Default Value
+            </button>
+        </div>
+    );
 }

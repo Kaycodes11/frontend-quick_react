@@ -1,41 +1,53 @@
-import { useForm, useWatch, Control } from "react-hook-form";
+import React, {useState, useEffect} from 'react';
+import {useForm, useWatch, Control} from 'react-hook-form';
+import {TextField, Button, Box, Typography, Container} from '@mui/material';
 
 interface FormInputs {
-  firstName: string;
-  lastName: string;
+    firstName: string;
+    lastName: string;
 }
 
-function FirstNameWatched({ control }: { control: Control<FormInputs> }) {
-  const firstName = useWatch({
-    control,
-    name: "firstName", // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
-    defaultValue: "default", // default value before the render
-  });
-  const rendercount = 1;
-  console.log("rendering", rendercount + 1);
+function FirstNameWatched({control}: { control: Control<FormInputs> }) {
+    const firstName = useWatch({control, name: "firstName", defaultValue: "default"});
+    const [renderCount, setRenderCount] = useState(1);
 
-  // this component will only re-render when when firstName changes
-  return <p>Watch: {firstName}</p>;
+    useEffect(() => {
+        setRenderCount((prevCount) => prevCount + 1);
+    }, [firstName]);
+
+    return <Typography>Watch: {firstName} (Render Count: {renderCount})</Typography>;
 }
 
 export default function UsingWatch() {
-  const { register, control, handleSubmit } = useForm<FormInputs>();
+    const {register, control, handleSubmit} = useForm<FormInputs>({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+        },
+    });
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data);
-  };
+    const onSubmit = (data: FormInputs) => console.log(data);
 
-  console.log("RENDER");
+    return (
+        <Container maxWidth="sm" sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh'
+        }}>
+            <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{width: '100%'}}>
+                <Typography variant="h6" sx={{textAlign: 'center', mb: 2}}>Form with Watch</Typography>
+                <TextField {...register("firstName")} label="First Name" variant="outlined" placeholder="FirstName"
+                           fullWidth margin="normal"/>
+                <TextField {...register("lastName")} label="Last Name" variant="outlined" placeholder="LastName"
+                           fullWidth margin="normal"/>
+                <Button type="submit" variant="contained" sx={{mt: 2}}>Submit</Button>
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column" }}>
-      <label>First Name:</label>
-      <input {...register("firstName")} placeholder="FirstName" />
-      <label>Last Name:</label>
-      <input {...register("lastName")} placeholder="LastName" />
-      <input type="submit" style={{ marginTop: "0.5rem" }} />
-
-      <FirstNameWatched control={control} />
-    </form>
-  );
+                <Box sx={{mt: 4}}>
+                    <FirstNameWatched control={control}/>
+                </Box>
+            </Box>
+        </Container>
+    );
 }

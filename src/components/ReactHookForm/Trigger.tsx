@@ -7,7 +7,7 @@ type FormInputs = {
   username: string;
 };
 
-// Manually triggers theform or a field validation. This method is also useful when you have
+// Manually triggers inform or a field validation. This method is also useful when you have
 // dependant validation (input validation depends on another input's value).
 
 export default function Trigger() {

@@ -1,45 +1,80 @@
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 
 type FormInputs = {
-  firstName: string;
-  lastName: string;
-  username: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+};
+
+const styles = {
+    form: {
+        display: "flex",
+        flexDirection: "column" as const,
+        alignItems: "center",
+        gap: "10px",
+        marginTop: "20px",
+    },
+    input: {
+        padding: "8px",
+        borderRadius: "4px",
+        border: "1px solid #ccc",
+        width: "200px",
+    },
+    error: {
+        color: "red",
+        fontSize: "0.75rem",
+        marginTop: "-5px",
+        marginBottom: "10px",
+    },
+    button: {
+        padding: "8px 12px",
+        border: "none",
+        borderRadius: "4px",
+        cursor: "pointer",
+        backgroundColor: "#007bff",
+        color: "white",
+        margin: "5px",
+    },
+    submitButton: {
+        marginTop: "20px",
+    },
 };
 
 export default function UsingClearErrors() {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    clearErrors,
-  } = useForm<FormInputs>();
+    const {
+        register,
+        formState: {errors},
+        handleSubmit,
+        clearErrors,
+    } = useForm<FormInputs>();
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data);
-  };
+    const onSubmit = (data: FormInputs) => {
+        console.log(data);
+    };
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("firstName", { required: true })} />
-      <input {...register("lastName", { required: true })} />
-      <input {...register("username", { required: true })} />
-      <button type="button" onClick={() => clearErrors("firstName")}>
-        Clear First Name Errors
-      </button>
-      <button
-        type="button"
-        onClick={() => clearErrors(["firstName", "lastName"])}
-      >
-        Clear First and Last Name Errors
-      </button>
-      <button type="button" onClick={() => clearErrors()}>
-        Clear All Errors
-      </button>
-      <input type="submit" />
-    </form>
-  );
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
+            <input {...register("firstName", {required: "First name is required"})} style={styles.input}/>
+            {errors.firstName && <p style={styles.error}>{errors.firstName.message}</p>}
+            <input {...register("lastName", {required: "Last name is required"})} style={styles.input}/>
+            {errors.lastName && <p style={styles.error}>{errors.lastName.message}</p>}
+            <input {...register("username", {required: "Username is required"})} style={styles.input}/>
+            {errors.username && <p style={styles.error}>{errors.username.message}</p>}
+            <button type="button" onClick={() => clearErrors("firstName")} style={styles.button}>
+                Clear First Name Errors
+            </button>
+            <button type="button" onClick={() => clearErrors(["firstName", "lastName"])} style={styles.button}>
+                Clear First and Last Name Errors
+            </button>
+            <button type="button" onClick={() => clearErrors()} style={styles.button}>
+                Clear All Errors
+            </button>
+            <input type="submit" style={{...styles.button, ...styles.submitButton}}/>
+        </form>
+    );
 }
+
 
 // single field errors
 /*

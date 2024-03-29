@@ -1,59 +1,59 @@
-import { Formik, Field, Form } from "formik";
+import React from "react";
+import {Formik, Field, Form} from "formik";
+import {Checkbox, FormControlLabel, Button, Container, Typography, FormGroup} from "@mui/material";
+
+interface FormValues {
+    toggle: boolean;
+    checked: string[];
+}
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-const CheckBox = () => (
-  <div>
-    <h1>Sign Up</h1>
-    <Formik
-      initialValues={{
-        toggle: false,
-        checked: [],
-      }}
-      onSubmit={async (values) => {
-        await sleep(500);
-        alert(JSON.stringify(values, null, 2));
-      }}
-    >
-      {({ values }) => (
-        <Form>
-          {/* 
-            This first checkbox will result in a boolean value being stored. Note that the `value` prop 
-            on the <Field/> is omitted
-          */}
-          <label>
-            <Field type="checkbox" name="toggle" />
-            {`${values.toggle}`}
-          </label>
+const CheckBox: React.FC = () => (
+    <Container maxWidth="sm" style={{marginTop: '2rem'}}>
+        <Typography variant="h4" gutterBottom>Sign Up</Typography>
+        <Formik<FormValues>
+            initialValues={{
+                toggle: false,
+                checked: [],
+            }}
+            onSubmit={async (values) => {
+                await sleep(500);
+                alert(JSON.stringify(values, null, 2));
+            }}
+        >
+            {({values}) => (
+                <Form>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={<Field as={Checkbox} type="checkbox" name="toggle" color="primary"/>}
+                            label={`${values.toggle}`}
+                        />
 
-          {/* 
-            Multiple checkboxes with the same name attribute, but different value attributes 
-            will be considered a "checkbox group". Formik will automatically
-            bind the checked values to a single array for your benefit. All the add and remove
-            logic will be taken care of for you.
-          */}
-          <div id="checkbox-group">Checked</div>
-
-          <div role="group" aria-labelledby="checkbox-group">
-            <label>
-              <Field type="checkbox" name="checked" value="One" />
-              One
-            </label>
-            <label>
-              <Field type="checkbox" name="checked" value="Two" />
-              Two
-            </label>
-            <label>
-              <Field type="checkbox" name="checked" value="Three" />
-              Three
-            </label>
-          </div>
-
-          <button type="submit">Submit</button>
-        </Form>
-      )}
-    </Formik>
-  </div>
+                        <Typography component="div" id="checkbox-group">Checked</Typography>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={<Field as={Checkbox} type="checkbox" name="checked" value="One"
+                                                color="primary"/>}
+                                label="One"
+                            />
+                            <FormControlLabel
+                                control={<Field as={Checkbox} type="checkbox" name="checked" value="Two"
+                                                color="primary"/>}
+                                label="Two"
+                            />
+                            <FormControlLabel
+                                control={<Field as={Checkbox} type="checkbox" name="checked" value="Three"
+                                                color="primary"/>}
+                                label="Three"
+                            />
+                        </FormGroup>
+                    </FormGroup>
+                    <Button type="submit" variant="contained" color="primary">Submit</Button>
+                </Form>
+            )}
+        </Formik>
+    </Container>
 );
 
 export default CheckBox;

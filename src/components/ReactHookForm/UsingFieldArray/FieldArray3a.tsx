@@ -1,175 +1,68 @@
-import React from "react";
-import {
-  useForm,
-  useWatch,
-  useFieldArray,
-  Controller,
-  Control,
-  UseFormReturn,
-} from "react-hook-form";
+import React from 'react';
+import {useForm, useFieldArray, Controller, Control} from 'react-hook-form';
+import {TextField, Button, Box, List, ListItem, Typography} from '@mui/material';
 
-let renderCount: number = 0;
+interface IFormInputs {
+    data: { name?: string; conditional?: string }[];
+}
 
-type FormInputs = {
-  data: { name?: string; conditional: string }[];
-};
+type FieldName = `data.${number}` | `data.${number}.name` | `data.${number}.conditional`;
 
-const ConditionField = <T extends any[]>({
-  control,
-  index,
-  unregister,
-}: {
-  control: Control<FormInputs>;
-  unregister: UseFormReturn<FormInputs>["unregister"];
-  index: number;
-  fields: T;
+const ConditionField = ({control, index, name}: {
+    control: Control<IFormInputs>;
+    index: number;
+    name: string;
 }) => {
-  const output = useWatch({
-    name: "data",
-    control,
-  });
+    const fieldName: FieldName = `data.${index}.conditional` as FieldName;
 
-  React.useEffect(() => {
-    return () => {
-      unregister(`data.${index}.conditional` as const, {
-        keepDirty: true,
-        keepTouched: true,
-      });
-    };
-  }, [unregister, index]);
+    return (
+        <Controller
+            name={fieldName} // Using the adjusted field name with type assertion
+            control={control}
+            render={({field}) => (
+                <TextField {...field} label="Conditional" variant="outlined" fullWidth margin="dense"/>
+            )}
+        />
 
-  return output?.[index]?.name === "bill" ? (
-    <input {...control.register(`data.${index}.conditional`)} />
-  ) : null;
+    );
 };
 
-const UseFieldArrayUnregister2: React.FC = () => {
-  const {
-    control,
-    handleSubmit,
-    register,
-    unregister,
-    setValue,
-    getValues,
-    formState: { isDirty, touchedFields, dirtyFields, errors },
-  } = useForm<FormInputs>({
-    defaultValues: {
-      data: [{ name: "test" }, { name: "test1" }, { name: "test2" }],
-    },
-    mode: "onSubmit",
-  });
-  const { fields, append, prepend, swap, move, insert, remove } = useFieldArray<FormInputs>({
-    control,
-    name: "data",
-  });
-  const [data, setData] = React.useState([]);
-  const onSubmit = (data: any) => {
-    setData(data);
-  };
-  const updateFieldArray = () => {
-    setValue("data", [...getValues().data, { name: "test", conditional: "" }]);
-  };
+const UseFieldArrayUnregister2 = () => {
+    const {control, handleSubmit, reset} = useForm<IFormInputs>({
+        defaultValues: {data: [{name: 'test'}, {name: 'test1'}, {name: 'test2'}]},
+    });
+    const {fields, append, remove} = useFieldArray({
+        control,
+        name: 'data',
+    });
 
-  renderCount++;
+    const onSubmit = (data: IFormInputs) => console.log(data);
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <ul>
-        {fields.map((data, index) => (
-          <li key={data.id}>
-            {index % 2 ? (
-              <input
-                id={`field${index}`}
-                data-order={index}
-                {...register(`data.${index}.name`, {
-                  required: "This is required",
-                })}
-              />
-            ) : (
-              <Controller
-                render={({ field }) => <input id={`field${index}`} {...field} />}
-                control={control}
-                rules={{
-                  required: "This is required",
-                }}
-                name={`data.${index}.name`}
-                data-order={index}
-              />
-            )}
-            {errors.data?.[index]?.name && (
-              <p id={`error${index}`}>{errors.data[index]!.name!.message}</p>
-            )}
-
-            <ConditionField
-              control={control}
-              index={index}
-              fields={fields}
-              unregister={unregister}
-            />
-
-            <button id={`delete${index}`} onClick={() => remove(index)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <button
-        id="append"
-        type="button"
-        // @ts-ignore
-        onClick={() => append({ name: renderCount.toString() })}
-      >
-        append
-      </button>
-
-      <button
-        id="prepend"
-        type="button"
-        // @ts-ignore
-        onClick={() => prepend({ name: renderCount.toString() })}
-      >
-        prepend
-      </button>
-
-      <button id="swap" onClick={() => swap(1, 2)} type="button">
-        swap
-      </button>
-
-      <button id="move" onClick={() => move(4, 2)} type="button">
-        move
-      </button>
-
-      <button
-        id="insert"
-        type="button"
-        // @ts-ignore
-        onClick={() => insert(1, { name: renderCount.toString() })}
-      >
-        insert
-      </button>
-
-      <button id="remove" type="button" onClick={() => remove(1)}>
-        remove
-      </button>
-
-      <button id="removeAll" type="button" onClick={() => remove()}>
-        remove all
-      </button>
-
-      <button id="submit">Submit</button>
-
-      <button type={"button"} onClick={updateFieldArray}>
-        SetValue
-      </button>
-
-      <div id="renderCount">{renderCount}</div>
-      <div id="result">{JSON.stringify(data)}</div>
-      <div id="dirty">{isDirty ? "yes" : "no"}</div>
-      <div id="dirtyFields">{JSON.stringify(dirtyFields)}</div>
-      <div id="touched">{JSON.stringify(touchedFields.data)}</div>
-    </form>
-  );
+    return (
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{width: '100%'}}>
+            <Typography variant="h6" gutterBottom>Field Array Example</Typography>
+            <List>
+                {fields.map((item, index) => (
+                    <ListItem key={item.id} sx={{display: 'flex', flexDirection: 'column', mb: 2}}>
+                        <Controller
+                            name={`data.${index}.name`}
+                            control={control}
+                            render={({field}) => (
+                                <TextField {...field} label={`Name ${index + 1}`} variant="outlined" fullWidth
+                                           margin="dense"/>
+                            )}
+                        />
+                        {item.name &&
+                            <ConditionField control={control} index={index} name={`data.${index}.conditional`}/>}
+                        <Button variant="outlined" onClick={() => remove(index)} sx={{mt: 1}}>Remove</Button>
+                    </ListItem>
+                ))}
+            </List>
+            <Button variant="contained" onClick={() => append({name: ''})} sx={{mt: 2}}>Append</Button>
+            <Button variant="contained" type="submit" sx={{mt: 2, ml: 2}}>Submit</Button>
+            <Button variant="outlined" onClick={() => reset()} sx={{mt: 2, ml: 2}}>Reset</Button>
+        </Box>
+    );
 };
 
 export default UseFieldArrayUnregister2;

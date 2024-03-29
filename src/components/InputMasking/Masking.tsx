@@ -31,3 +31,23 @@ const Masking: React.FC = () => {
 };
 
 export default Masking;
+
+// 25 + 14 = 40 Lakh
+
+// 18 + 14 = 32 Lakh
+
+// NPS : 200000 (150000 + 50000)
+
+// 80C -> 1,50,000 + (Health insurance + NPS)
+
+// 24B: 216000 (18000 / m) EMI
+
+// Tax = 200000 + 150000 + 50000  + 50000 = 4,50,000 RS , 60,000 Rs
+
+// EMI -> Rent + HI + NPS = (216000 - 1, 20, 000 ) = 96000  = 50000 H + 50000  NPS
+
+// 80c = NPS (1, 50, 000 INR)
+
+// 24b = ?
+
+// Tax = 95,000 INR

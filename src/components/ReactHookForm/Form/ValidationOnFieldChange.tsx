@@ -1,182 +1,175 @@
-import { useForm, useFormState } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { ErrorMessage } from "@hookform/error-message";
+import React from 'react';
+import {useForm, useFormState, useWatch, Control, Controller} from 'react-hook-form';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {
+    TextField,
+    Button,
+    Box,
+    Typography,
+    FormControl,
+    FormControlLabel,
+    Checkbox,
+    RadioGroup,
+    Radio,
+    FormHelperText,
+    Grid
+} from '@mui/material';
 
 enum GenderEnum {
-  female = "female",
-  male = "male",
-  others = "others",
+    female = 'female',
+    male = 'male',
+    others = 'others',
 }
 
 type FormValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  isDeveloper: boolean;
-  mobileNumber: string;
-  title: string;
-  gender: GenderEnum;
-  developer: string;
-  isArtist: boolean;
+    firstName: string;
+    lastName: string;
+    email: string;
+    isDeveloper: boolean;
+    mobileNumber: string;
+    title: string;
+    gender: GenderEnum;
+    developer: string;
+    isArtist: boolean;
 };
 
 const SignupSchema = yup.object().shape({
-  firstName: yup.string().required().min(2).max(20),
-  lastName: yup.string().required().min(2).max(20),
-  email: yup.string().email(),
-  mobileNumber: yup.string().required().min(10).max(10),
-  title: yup.string().trim().required().min(2).max(10),
+    firstName: yup.string().required().min(2).max(20),
+    lastName: yup.string().required().min(2).max(20),
+    email: yup.string().email().required(),
+    mobileNumber: yup.string().required().min(10).max(10),
+    title: yup.string().trim().required().min(2).max(10),
 });
 
 export default function ValidationOnFieldChange() {
-  // to do field level validation when touched / dirty then use the mode "onChange"/ "onBlur"
-  const {
-    register,
-    setValue,
-    formState: { errors },
-    handleSubmit,
-    control,
-    reset,
-  } = useForm<FormValues>({
-    resolver: yupResolver(SignupSchema),
-    mode: "onChange",
-  });
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        setValue,
+    } = useForm<FormValues>({
+        resolver: yupResolver(SignupSchema),
+        mode: 'onChange',
+    });
+    const {errors} = useFormState({control});
 
-  // show which form control(s) are dirty?
-  const { dirtyFields, touchedFields } = useFormState({ control });
+    const onSubmit = (data: FormValues) => {
+        console.log(data);
+    };
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-  };
-
-  return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="firstName">First Name</label>
-          <input
-            placeholder="bill"
-            {...register("firstName", { required: true })}
-          />
-          {dirtyFields.firstName && (
-            <p>{touchedFields.firstName} Field is dirty.</p>
-          )}
-          {errors.firstName && <p>{errors.firstName.message}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            placeholder="luo"
-            {...register("lastName", { required: true })}
-          />
-          <p>
-            ErrorMessage: <ErrorMessage errors={errors} name="lastName" />
-          </p>
-          {/* ErrorMessage: <ErrorMessage errors={errors} name="lastName" as={"h1"} /> */}
-          {/* <ErrorMessage
-            errors={errors}
-            name="lastName"
-            render={({ message }) => <p>{message}</p>}
-          /> */}
-          {errors.lastName && <p role="alert">{errors.lastName.message}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="email">Email</label>
-          <input {...register("email", { required: true })} />
-          {errors.email && <p>{errors.email.message}</p>}
-        </div>
-
-        <div style={{ display: "flex" }}>
-          <label>Is developer?</label>
-          <input
-            style={{ transform: "translateY(8px)" }}
-            type="checkbox"
-            {...register("isDeveloper")}
-          />
-        </div>
-
-        <div>
-          <label>Mobile number</label>
-          <input type="tel" {...register("mobileNumber")} />
-        </div>
-
-        <div>
-          <label>Title</label>
-          <select {...register("title")}>
-            <option value="Mr">Mr</option>
-            <option value="Mrs">Mrs</option>
-            <option value="Miss">Miss</option>
-            <option value="Dr">Dr</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Gender</label>
-          <select {...register("gender")}>
-            <option value="female">female</option>
-            <option value="male">male</option>
-            <option value="other">other</option>
-          </select>
-        </div>
-
-        <button
-          style={{ marginRight: "4px" }}
-          type="button"
-          onClick={() => {
-            setValue("firstName", "S", {
-              shouldValidate: true,
-              shouldDirty: true,
-              shouldTouch: true,
-            });
-            setValue("isDeveloper", true);
-          }}
+    return (
+        <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            autoComplete="off"
+            sx={{width: '100%', maxWidth: 480, mx: 'auto'}}
         >
-          Set All Values
-        </button>
-
-        <div>
-          <label>Are you a developer?</label>
-          <input type="radio" value="Yes" {...register("developer")} />
-          <input type="radio" value="No" {...register("developer")} />
-        </div>
-
-        <div>
-          <label>Is developer?</label>
-          <input type="checkbox" {...register("isArtist")} />
-        </div>
-
-        {/* <pre>{JSON.stringify(formState, null, 2)}</pre> */}
-
-        <button type="submit">Submit</button>
-
-        <input
-          style={{ marginTop: ".2rem" }}
-          type="button"
-          onClick={() => {
-            reset();
-          }}
-          value="custom value clear and errors"
-        />
-
-        <button
-          onClick={() => {
-            reset((formValues) => ({
-              ...formValues,
-              lastName: "test",
-            }));
-          }}
-        >
-          Reset partial
-        </button>
-      </form>
-
-      {/* to submit outside the form, use handleSumit like below */}
-      <button type="button" onClick={handleSubmit(onSubmit)}>
-        submit button outside of form
-      </button>
-    </>
-  );
+            <Typography variant="h6" gutterBottom>
+                Sign Up Form
+            </Typography>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <TextField
+                        label="First Name"
+                        variant="outlined"
+                        fullWidth
+                        {...register('firstName')}
+                        error={Boolean(errors.firstName)}
+                        helperText={errors.firstName?.message}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Last Name"
+                        variant="outlined"
+                        fullWidth
+                        {...register('lastName')}
+                        error={Boolean(errors.lastName)}
+                        helperText={errors.lastName?.message}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        {...register('email')}
+                        error={Boolean(errors.email)}
+                        helperText={errors.email?.message}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Mobile Number"
+                        variant="outlined"
+                        fullWidth
+                        {...register('mobileNumber')}
+                        error={Boolean(errors.mobileNumber)}
+                        helperText={errors.mobileNumber?.message}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl fullWidth error={Boolean(errors.title)}>
+                        <Controller
+                            name="title"
+                            control={control}
+                            render={({field}) => (
+                                <TextField
+                                    {...field}
+                                    select
+                                    label="Title"
+                                    variant="outlined"
+                                    SelectProps={{native: true}}
+                                >
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Dr">Dr</option>
+                                </TextField>
+                            )}
+                        />
+                        <FormHelperText>{errors.title?.message}</FormHelperText>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl component="fieldset" error={Boolean(errors.gender)}>
+                        <Controller
+                            name="gender"
+                            control={control}
+                            render={({field}) => (
+                                <RadioGroup {...field} row>
+                                    <FormControlLabel value="female" control={<Radio/>} label="Female"/>
+                                    <FormControlLabel value="male" control={<Radio/>} label="Male"/>
+                                    <FormControlLabel value="other" control={<Radio/>} label="Other"/>
+                                </RadioGroup>
+                            )}
+                        />
+                        <FormHelperText>{errors.gender?.message}</FormHelperText>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControlLabel
+                        control={<Checkbox {...register('isDeveloper')} />}
+                        label="Is Developer?"
+                    />
+                </Grid>
+                <Grid item xs={12} sx={{display: 'flex', gap: 2}}>
+                    <Button variant="contained" type="submit">Submit</Button>
+                    <Button variant="outlined" onClick={() => reset()}>Reset</Button>
+                    <Button
+                        variant="outlined"
+                        onClick={() => {
+                            setValue('firstName', 'S', {shouldValidate: true, shouldDirty: true, shouldTouch: true});
+                            setValue('isDeveloper', true);
+                        }}
+                    >
+                        Set All Values
+                    </Button>
+                </Grid>
+            </Grid>
+        </Box>
+    );
 }
