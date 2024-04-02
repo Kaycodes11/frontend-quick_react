@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // Define an interface for the context value (type based on what is provided through .Provider value and children)
 interface StepperContextType<T = any> {
@@ -15,9 +15,7 @@ const StepperContext = React.createContext<StepperContextType | null>(null);
 export function useStepperContext<T>() {
   const context = React.useContext(StepperContext);
   if (!context) {
-    throw new Error(
-      "useStepperContext must be used within a StepperContextProvider"
-    );
+    throw new Error('useStepperContext must be used within a StepperContextProvider');
   }
 
   // below line will take Type Argument from this custom hook and use in StepperContextType<T>

@@ -13,8 +13,8 @@ import UsingClearErrors from "./components/ReactHookForm/UsingClearErrors";
 import UsingResetField from "./components/ReactHookForm/UsingResetField";
 import UsingResetForFieldArray from "./components/ReactHookForm/UsingResetForFieldArray";
 import UsingResetWithSubmit, {
-    ControlledForm,
-    UncontrolledForm,
+  ControlledForm,
+  UncontrolledForm,
 } from "./components/ReactHookForm/UsingResetWithSubmit";
 import UsingUnRegister from "./components/ReactHookForm/UsingUnRegister"; // RH
 import NormalizedField from "./components/ReactHookForm/practice/NormalizedField";
@@ -43,6 +43,7 @@ import Form from "./components/ReactHookForm/Form";
 import WatchFieldOrFields from "./components/ReactHookForm/Form/WatchFieldOrFields";
 import MyForm from "./components/MultiSelectAndTags/MyForm";
 import FileUploadForm from "./components/FileHandling/FileUploadForm";
+import FileUploadMultiForm from "./components/FileHandling/FileUploadMultiForm";
 import Account from "./components/StepperForm/Account";
 import Final from "./components/StepperForm/Final";
 import Details from "./components/StepperForm/Details";
@@ -52,117 +53,123 @@ import StepperContext from "./contexts/StepperContext";
 import Payment from "./components/StepperForm/Payment";
 import Masking from "./components/InputMasking/Masking";
 import {
-    CustomSingleOrMultiSelect,
-    CustomSelect,
-    CustomSelectAlt
+  CustomSingleOrMultiSelect,
+  CustomSelect,
+  CustomSelectAlt,
 } from "./components/MultiSelectAndTags/CustomSingleOrMultiSelect";
-import {GroupBase} from "react-select";
-
+import { GroupBase } from "react-select";
+import { SortableItem } from "./components/DragDrop/SortableItem";
+import { SortableList } from "./components/DragDrop/SortableList";
+import DisplayForm from "./components/FormValidation/DisplayForm";
+import fetchUsers from "./components/FormValidation/lib/fetchUsers";
 
 // Assuming options are of this shape
 interface OptionType {
-    value: string;
-    label: string;
+  value: string;
+  label: string;
 }
 
 // `options` will be allocated and executed just once during the initial render, and it will do the exact once again when this component unmount and remount
 const options: OptionType[] = [
-    {value: 'chocolate', label: 'Chocolate'},
-    {value: 'strawberry', label: 'Strawberry'},
-    {value: 'vanilla', label: 'Vanilla'}
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
 ];
 
 // This is the value (structure) that needs to followed when using `label` and `options` properties for `options` prop
 const groupedOptions: GroupBase<OptionType>[] = [
-    {
-        label: 'Group 1',
-        options: [
-            { value: 'option1', label: 'Option 1' },
-            { value: 'option2', label: 'Option 2' },
-        ],
-    },
-    {
-        label: 'Group 2',
-        options: [
-            { value: 'option3', label: 'Option 3' },
-            { value: 'option4', label: 'Option 4' },
-        ],
-    },
+  {
+    label: "Group 1",
+    options: [
+      { value: "option1", label: "Option 1" },
+      { value: "option2", label: "Option 2" },
+    ],
+  },
+  {
+    label: "Group 2",
+    options: [
+      { value: "option3", label: "Option 3" },
+      { value: "option4", label: "Option 4" },
+    ],
+  },
 ];
 
+// This will be called exactly once during the initial render (not the subsequent renders i.e. re-renders) and once //again when this component unmount and remount again, then it will be called exactly once again
+// N.B: useEffect() with empty dependency array will achieve the exact same behavior
+fetchUsers();
 
 // make branch from this branch
 function App() {
-    const [currentStep, setCurrentStep] = React.useState(1);
-    const [userData, setUserData] = React.useState<string>("");
-    const [finalData, setFinalData] = React.useState<any[]>([]);
-    const steps = ["Account Info", "Personal Details", "Payment", "Complete"];
+  const [currentStep, setCurrentStep] = React.useState(1);
+  const [userData, setUserData] = React.useState<string>("");
+  const [finalData, setFinalData] = React.useState<any[]>([]);
+  const steps = ["Account Info", "Personal Details", "Payment", "Complete"];
 
-    const displayStep = (step: number) => {
-        switch (step) {
-            case 1:
-                return <Account/>;
-            case 2:
-                return <Details/>;
-            case 3:
-                return <Payment/>;
-            case 4:
-                return <Final/>;
+  const displayStep = (step: number) => {
+    switch (step) {
+      case 1:
+        return <Account />;
+      case 2:
+        return <Details />;
+      case 3:
+        return <Payment />;
+      case 4:
+        return <Final />;
 
-            default:
-                return <div>Unknown Step</div>;
-        }
-    };
+      default:
+        return <div>Unknown Step</div>;
+    }
+  };
 
-    // This should be optimized / memoized since it is being passed as Prop to StepperControl
-    const handleClick = React.useCallback(
-        (direction: "back" | "next") => {
-            let newStep = currentStep;
+  // This should be optimized / memoized since it is being passed as Prop to StepperControl
+  const handleClick = React.useCallback(
+    (direction: "back" | "next") => {
+      let newStep = currentStep;
 
-            direction.toLowerCase() === "next" ? newStep++ : newStep--;
+      direction.toLowerCase() === "next" ? newStep++ : newStep--;
 
-            newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
-        },
-        [currentStep, steps.length]
-    );
+      newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+    },
+    [currentStep, steps.length]
+  );
 
+  return (
+    // <div className="md:w-1/2 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
+    //   {/* <WatchFieldOrFields /> */}
+    //   <div className="container horizontal mt-5">
+    //     <Stepper steps={steps} currentStep={currentStep} />
 
-    return (
-        // <div className="md:w-1/2 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
-        //   {/* <WatchFieldOrFields /> */}
-        //   <div className="container horizontal mt-5">
-        //     <Stepper steps={steps} currentStep={currentStep} />
+    //     {/* Display Components */}
 
-        //     {/* Display Components */}
+    //     <div className="my-10 p-10">
+    //       <StepperContext.Provider
+    //         value={{ userData, setUserData, finalData, setFinalData }}
+    //       >
+    //         {displayStep(currentStep)}
+    //       </StepperContext.Provider>
+    //     </div>
+    //   </div>
 
-        //     <div className="my-10 p-10">
-        //       <StepperContext.Provider
-        //         value={{ userData, setUserData, finalData, setFinalData }}
-        //       >
-        //         {displayStep(currentStep)}
-        //       </StepperContext.Provider>
-        //     </div>
-        //   </div>
+    //   {currentStep !== steps.length && (
+    //     <StepperControl
+    //       currentStep={currentStep}
+    //       handleClick={handleClick}
+    //       steps={steps}
+    //     />
+    //   )}
+    // </div>
 
-        //   {currentStep !== steps.length && (
-        //     <StepperControl
-        //       currentStep={currentStep}
-        //       handleClick={handleClick}
-        //       steps={steps}
-        //     />
-        //   )}
-        // </div>
-
-        <>
-            {/*<FileUploadForm/>*/}
-            <CustomSingleOrMultiSelect options={options} onChange={(option) => console.log(option)} myCustomProp={"I am custom prop"}  isMulti={true}/>
-            <CustomSelectAlt<OptionType, false> options={options} onChange={(option) => console.log(option)} myCustomProp={"Alt: This is a custom prop"} isMulti={false} />
-            <CustomSingleOrMultiSelect options={groupedOptions} onChange={(option) => console.log(option)} myCustomProp={"I am custom prop"}  isMulti={true}/>
-        </>
-    );
+    <>
+      {/*<FileUploadMultiForm/>*/}
+      <DisplayForm />
+      {/*<SortableList />*/}
+      {/*<CustomSingleOrMultiSelect options={options} onChange={(option) => console.log(option)} myCustomProp={"I am custom prop"}  isMulti={true}/>*/}
+      {/*<CustomSelectAlt<OptionType, false> options={options} onChange={(option) => console.log(option)} myCustomProp={"Alt: This is a custom prop"} isMulti={false} />*/}
+      {/*<CustomSingleOrMultiSelect options={groupedOptions} onChange={(option) => console.log(option)} myCustomProp={"I am custom prop"}  isMulti={true}/>*/}
+    </>
+  );
 }
 
 // Define options for the select dropdown
-
 
 export default App;
