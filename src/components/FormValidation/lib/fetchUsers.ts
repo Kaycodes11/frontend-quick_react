@@ -1,5 +1,5 @@
-import { UserSchemaWithGeo } from "../models/User";
-import { z } from "zod";
+import { UserSchemaWithGeo } from '../models/User';
+import { z } from 'zod';
 
 const UserResults = z.array(UserSchemaWithGeo); // it does -> UserSchemaWithGeo[]
 
@@ -7,7 +7,7 @@ type UserArray = z.infer<typeof UserResults>;
 
 export default async function fetchUsers(): Promise<UserArray | undefined> {
   try {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const res = await fetch('https://jsonplaceholder.typicode.com/users');
 
     if (!res.ok) return undefined;
 
