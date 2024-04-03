@@ -13,7 +13,7 @@ i18n
       loadPath: "/assets/i18n/{{ns}}/{{lng}}.json",
     },
     fallbackLng: "en",
-    // disabled in production
+    // `debug` disabled in production
     debug: false,
     // can have multiple namespaces, in case you want to divide a huge
     // translation into smaller pieces and load them on demand

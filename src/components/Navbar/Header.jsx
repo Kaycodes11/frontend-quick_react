@@ -6,6 +6,8 @@ import i18next from "i18next";
 const Header = () => {
   const { i18n, t } = useTranslation(["common"]);
 
+  // most likely due to i18next-browser-languagedetector, whenever language changed it will save it to localStorage
+
   useEffect(() => {
     if (localStorage.getItem("i18nextLng")?.length > 2) {
       i18next.changeLanguage("en");
@@ -13,12 +15,13 @@ const Header = () => {
   }, []);
 
   const handleLanguageChange = (e) => {
-    i18n.changeLanguage(e.target.value);
+    i18n.changeLanguage(e.target.value); // so here as language changed, saved to localStorage with key "i18nextLng"
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Link className="navbar-brand" to="/">
+        {/* why it doesn't change when selected another language; because there's no namespace or folder called "navbar within" public -> assets -> i18n folder so it doesn't change or translate */}
         {t("Navbar")}
       </Link>
       <button
@@ -32,14 +35,16 @@ const Header = () => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
+
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <select
               className="nav-link bg-dark border-0 ml-1 mr-2"
-              value={localStorage.getItem("i18nextLng")}
+              value={localStorage.getItem("i18nextLng") ?? ""}
               onChange={handleLanguageChange}
             >
+              {/* These en, es and fr are exactly same what named within common, home and profile */}
               <option value="en">English</option>
               <option value="fr">Français</option>
               <option value="es">Español</option>

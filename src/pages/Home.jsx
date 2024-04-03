@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
+  // the element in this i.e. "home" should exist in "ns" i18n.js file's ns array ↓
   const { t } = useTranslation(["home"]);
 
   return (

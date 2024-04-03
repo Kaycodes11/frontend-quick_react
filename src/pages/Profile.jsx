@@ -17,7 +17,11 @@ const Profile = () => {
       </div>
       <div className="form-group">
         <label htmlFor="">{t("profile:email")}:</label>
-        <input type="text" className="form-control" placeholder="john@john.com" />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="john@john.com"
+        />
       </div>
       <br />
       <div className="text-center">
