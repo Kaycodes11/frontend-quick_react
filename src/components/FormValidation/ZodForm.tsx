@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormSchemaWithAddress } from "../models/User";

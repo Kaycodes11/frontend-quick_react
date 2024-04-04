@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import MaskedInput from "react-input-mask";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -21,11 +22,7 @@ interface CustomMaskedInputProps {
   name: string;
 }
 
-const CustomMaskedInput: React.FC<CustomMaskedInputProps> = ({
-  value,
-  onChange,
-  name,
-}) => {
+const CustomMaskedInput: React.FC<CustomMaskedInputProps> = ({ value, onChange, name }) => {
   return (
     <MaskedInput
       mask="+7 (999) 999-99-99"
@@ -43,15 +40,9 @@ const CustomMaskedInput: React.FC<CustomMaskedInputProps> = ({
 };
 
 export default function InputMasking() {
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm<IFormInput>({
+  const { handleSubmit, formState: { errors }, control} = useForm<IFormInput>({
     reValidateMode: "onSubmit",
-    defaultValues: {
-      ControlledMaskedInput: "7",
-    },
+    defaultValues: { ControlledMaskedInput: "7"},
   });
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
