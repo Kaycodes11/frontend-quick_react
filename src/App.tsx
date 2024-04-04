@@ -16,14 +16,21 @@ import UsingResetWithSubmit, {
   ControlledForm,
   UncontrolledForm,
 } from './components/ReactHookForm/UsingResetWithSubmit';
+import Form1 from './components/ReactHookForm/Form/Form1'; // RH
+import Form2 from './components/ReactHookForm/Form/Form2'; // RH
+import Form from './components/ReactHookForm/Form'; // RH
+import WatchFieldOrFields from './components/ReactHookForm/Form/WatchFieldOrFields'; // RH
 import UsingUnRegister from './components/ReactHookForm/UsingUnRegister'; // RH
 import NormalizedField from './components/ReactHookForm/practice/NormalizedField';
 import UseFieldArrayUnregister2 from './components/ReactHookForm/UsingFieldArray/FieldArray3a'; // RH
 import UsingWatch from './components/ReactHookForm/CustomInput/UsingWatch'; // RH
 import Trigger from './components/ReactHookForm/Trigger'; // RH
 import ValidationOnFieldChange from './components/ReactHookForm/Form/ValidationOnFieldChange'; // RH
-import Form2 from './components/ReactHookForm/Form/Form2'; // Formik
-import Form1 from './components/ReactHookForm/Form/Form1'; // RH
+import DependantField from './components/ReactHookForm/DependantField'; // RH
+import MyForm from './components/MultiSelectAndTags/MyForm'; // RH
+import FileUploadForm from './components/FileHandling/FileUploadForm';
+import FileUploadMultiForm from './components/FileHandling/FileUploadMultiForm';
+
 import BasicForm from './components/formik-examples/BasicForm'; // Formik
 import TwoFactorVerificationForm from './components/BasicForm/FormikContext'; // Formik
 import NestedForm from './components/BasicForm/NestedForm'; // Formik
@@ -38,12 +45,7 @@ import InviteFriends from './components/formik-examples/FormArray'; // Formik
 import TextInputLiveFeedback from './components/formik-examples/TextInputLiveFeedback'; // Formik
 import Radio from './components/formik-examples/Radio'; // Formik
 import TsForm from './components/formik-examples/TsForm'; // Formik
-import DependantField from './components/ReactHookForm/DependantField';
-import Form from './components/ReactHookForm/Form';
-import WatchFieldOrFields from './components/ReactHookForm/Form/WatchFieldOrFields';
-import MyForm from './components/MultiSelectAndTags/MyForm';
-import FileUploadForm from './components/FileHandling/FileUploadForm';
-import FileUploadMultiForm from './components/FileHandling/FileUploadMultiForm';
+
 import Account from './components/StepperForm/Account';
 import Final from './components/StepperForm/Final';
 import Details from './components/StepperForm/Details';
@@ -52,11 +54,13 @@ import StepperControl from './components/StepperForm/StepperControl';
 import StepperContext from './contexts/StepperContext';
 import Payment from './components/StepperForm/Payment';
 import Masking from './components/InputMasking/Masking';
+
 import {
   CustomSingleOrMultiSelect,
   CustomSelect,
   CustomSelectAlt,
 } from './components/MultiSelectAndTags/CustomSingleOrMultiSelect';
+
 import { GroupBase } from 'react-select';
 import { SortableItem } from './components/DragDrop/SortableItem';
 import { SortableList } from './components/DragDrop/SortableList';
@@ -161,7 +165,7 @@ function App() {
 
     <>
       {/*<FileUploadMultiForm/>*/}
-      <FieldArrayMin />
+      <FileUploadForm />
       {/*<SortableList />*/}
       {/*<CustomSingleOrMultiSelect options={options} onChange={(option) => console.log(option)} myCustomProp={"I am custom prop"}  isMulti={true}/>*/}
       {/*<CustomSelectAlt<OptionType, false> options={options} onChange={(option) => console.log(option)} myCustomProp={"Alt: This is a custom prop"} isMulti={false} />*/}

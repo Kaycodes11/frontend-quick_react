@@ -85,6 +85,7 @@ export default function UsingResetForFieldArray() {
                 ))}
             </ul>
 
+
             <input type="submit" value="Submit" style={styles.submitButton}/>
         </form>
     );
